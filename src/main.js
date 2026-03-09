@@ -65,6 +65,11 @@ function renderChatScreen(lawyer) {
 
   backBtn.addEventListener('click', renderSelectScreen);
 
+  // Track IME composition state
+  let isComposing = false;
+  input.addEventListener('compositionstart', () => { isComposing = true; });
+  input.addEventListener('compositionend', () => { isComposing = false; });
+
   // Auto-resize textarea
   input.addEventListener('input', () => {
     input.style.height = '44px';
@@ -72,7 +77,7 @@ function renderChatScreen(lawyer) {
   });
 
   input.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === 'Enter' && !e.shiftKey && !isComposing && !e.isComposing) {
       e.preventDefault();
       handleSend();
     }
