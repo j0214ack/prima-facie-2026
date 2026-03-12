@@ -1,4 +1,4 @@
-let currentProvider = localStorage.getItem('provider') || 'gemini';
+let currentProvider = localStorage.getItem('provider') || 'anthropic';
 
 export function getProvider() {
   return currentProvider;
@@ -9,14 +9,14 @@ export function setProvider(provider) {
   localStorage.setItem('provider', provider);
 }
 
-export async function sendMessage(systemPrompt, history, userMessage) {
+export async function sendMessage(systemPrompt, history, userMessage, onChunk) {
   if (currentProvider === 'anthropic') {
-    return sendAnthropic(systemPrompt, history, userMessage);
+    return sendAnthropic(systemPrompt, history, userMessage, onChunk);
   }
   return sendGemini(systemPrompt, history, userMessage);
 }
 
-async function sendAnthropic(systemPrompt, history, userMessage) {
+async function sendAnthropic(systemPrompt, history, userMessage, onChunk) {
   const messages = [];
 
   for (const msg of history) {
@@ -33,6 +33,7 @@ async function sendAnthropic(systemPrompt, history, userMessage) {
     body: JSON.stringify({
       model: 'claude-sonnet-4-20250514',
       max_tokens: 1024,
+      stream: true,
       system: systemPrompt + '\n\n請用繁體中文回答。',
       messages,
     }),
@@ -43,8 +44,35 @@ async function sendAnthropic(systemPrompt, history, userMessage) {
     throw new Error(`Anthropic error: ${res.status} - ${err}`);
   }
 
-  const data = await res.json();
-  return data.content?.[0]?.text ?? '（無回應）';
+  const reader = res.body.getReader();
+  const decoder = new TextDecoder();
+  let fullText = '';
+  let buffer = '';
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+
+    buffer += decoder.decode(value, { stream: true });
+    const lines = buffer.split('\n');
+    buffer = lines.pop();
+
+    for (const line of lines) {
+      if (!line.startsWith('data: ')) continue;
+      const data = line.slice(6);
+      if (data === '[DONE]') continue;
+
+      try {
+        const event = JSON.parse(data);
+        if (event.type === 'content_block_delta' && event.delta?.text) {
+          fullText += event.delta.text;
+          if (onChunk) onChunk(fullText);
+        }
+      } catch {}
+    }
+  }
+
+  return fullText || '（無回應）';
 }
 
 async function sendGemini(systemPrompt, history, userMessage) {

@@ -10,6 +10,10 @@
   --text-secondary: #6B6B6B;
   --text-muted: #999999;
   --border: #E0DDD8;
+  --brand: #CC2929;
+  --brand-dark: #4A90A4;
+  --gray-800: #454545;
+  --gray-900: #2b2b2b;
   --accent: #2c2c2c;
   --card-bg: #ffffff;
   --chat-user: #f0eeea;
@@ -44,12 +48,15 @@ html, body {
   align-items: center;
   justify-content: space-between;
   padding: 16px 60px;
-  background: rgba(255, 255, 255, 0.6);
+  background: #f8f9fa;
 }
 
 .site-logo {
-  font-family: var(--font-serif);
-  font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-sans);
+  font-size: 16px;
   font-weight: 700;
   color: var(--text);
 }
@@ -79,11 +86,7 @@ html, body {
 .hero-bg {
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
-    url('https://workers.paper.design/file-assets/01KKGAP9ES0CATZR7M9T6SCMD6/0RHZ5EKD4VPRJH1SY2R6PB6KQX.png');
-  background-size: cover;
-  background-position: center;
+  background: url('/assets/redline-bg.png') center / cover no-repeat;
 }
 
 .hero-content {
@@ -97,34 +100,48 @@ html, body {
 }
 
 .hero-title {
-  font-family: var(--font-serif);
+  font-family: var(--font-sans);
   font-size: 36px;
-  font-weight: 700;
+  font-weight: 300;
   line-height: 1.5;
-  color: #FFFFFF;
+  color: var(--text);
+  background: #FFFFFF;
+  padding: 4px 16px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
 }
 
 .hero-body {
   font-size: 15px;
   font-weight: 300;
   line-height: 2;
-  color: rgba(255, 255, 255, 0.85);
+  color: var(--text);
+  background: #FFFFFF;
+  padding: 12px 24px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
 }
 
 .hero-cta {
   font-size: 15px;
   font-weight: 400;
   line-height: 2;
-  color: #FFFFFF;
+  color: var(--text);
+  background: #FFFFFF;
+  padding: 12px 24px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
 }
 
 /* Lawyer Section */
 .lawyer-section {
   flex: 1;
+  background: url('/assets/lawyer-background.png') center / cover no-repeat;
+  padding: 40px;
 }
 
 .lawyer-section-header {
-  padding: 60px 120px 32px;
+  padding: 0 0 32px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -149,7 +166,7 @@ html, body {
 .lawyers-grid {
   display: flex;
   flex-wrap: wrap;
-  padding: 0 120px;
+  justify-content: center;
   gap: 24px;
 }
 
@@ -160,14 +177,13 @@ html, body {
   border-radius: 8px;
   overflow: hidden;
   background: var(--card-bg);
-  border: 1px solid var(--border);
+  border: 2px solid var(--text);
   cursor: pointer;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .lawyer-card:hover {
-  border-color: var(--accent);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  border-color: var(--brand);
 }
 
 .lawyer-card-image {
@@ -184,7 +200,7 @@ html, body {
 }
 
 .lawyer-card-info {
-  padding: 20px;
+  padding: 8px 12px;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -212,13 +228,19 @@ html, body {
 /* Footer */
 .site-footer {
   padding: 40px 60px;
-  text-align: center;
+  text-align: left;
+  background: #ffffff;
 }
 
 .site-footer p {
   font-size: 12px;
   font-weight: 300;
-  color: var(--text-muted);
+  color: #2b2b2b;
+  line-height: 2;
+}
+
+.site-footer-credits {
+  margin-top: 16px;
 }
 
 /* ── Tablet (768px–1023px) ── */
@@ -246,11 +268,10 @@ html, body {
   }
 
   .lawyer-section-header {
-    padding: 48px 40px 24px;
+    padding: 0 0 24px;
   }
 
   .lawyers-grid {
-    padding: 0 40px;
     gap: 20px;
   }
 
@@ -299,8 +320,12 @@ html, body {
     font-size: 14px;
   }
 
+  .lawyer-section {
+    padding: 40px 20px;
+  }
+
   .lawyer-section-header {
-    padding: 36px 20px 20px;
+    padding: 0 0 20px;
   }
 
   .lawyer-section-title {
@@ -312,7 +337,6 @@ html, body {
   }
 
   .lawyers-grid {
-    padding: 0 20px;
     flex-direction: column;
     gap: 12px;
   }
@@ -351,42 +375,55 @@ html, body {
   height: 100vh;
 }
 
-.chat-header {
+/* Lawyer bar */
+.chat-lawyer-bar {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 16px 24px;
-  border-bottom: 1px solid var(--border);
+  justify-content: space-between;
+  padding: 12px 24px;
   background: var(--card-bg);
+  border-bottom: 1px solid var(--border);
 }
 
-.chat-header .back-btn {
-  background: none;
+.chat-lawyer-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.chat-lawyer-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
   border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 6px 12px;
-  font-size: 13px;
-  cursor: pointer;
+}
+
+.chat-lawyer-name {
   font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 700;
   color: var(--text);
+}
+
+.chat-switch-btn {
+  background: none;
+  border: 1px solid var(--text);
+  border-radius: 4px;
+  padding: 6px 16px;
+  font-size: 13px;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  color: var(--text);
+  cursor: pointer;
   transition: background 0.15s;
 }
 
-.chat-header .back-btn:hover {
+.chat-switch-btn:hover {
   background: var(--bg);
 }
 
-.chat-header .lawyer-info .name {
-  font-family: var(--font-serif);
-  font-size: 16px;
-  font-weight: 700;
-}
-
-.chat-header .lawyer-info .role {
-  font-size: 12px;
-  color: var(--text-secondary);
-}
-
+/* Chat messages */
 .chat-messages {
   flex: 1;
   overflow-y: auto;
@@ -394,8 +431,44 @@ html, body {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  background: url('/assets/redline-bg.png') center / cover no-repeat;
 }
 
+/* Welcome state */
+.chat-welcome {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+
+.chat-welcome-avatar {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--text);
+}
+
+.chat-welcome-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.chat-welcome-text {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 2;
+  color: var(--text);
+  text-align: center;
+}
+
+/* Messages */
 .message {
   max-width: 640px;
   line-height: 1.7;
@@ -403,37 +476,103 @@ html, body {
   padding: 14px 18px;
   border-radius: 10px;
   white-space: pre-wrap;
+  color: #ffffff;
 }
 
 .message.ai {
-  background: var(--chat-ai);
-  border: 1px solid var(--border);
+  background: var(--brand-dark);
   align-self: flex-start;
 }
 
 .message.user {
-  background: var(--chat-user);
+  background: var(--gray-900);
   align-self: flex-end;
 }
 
 .message.typing {
-  color: var(--text-secondary);
+  background: var(--brand-dark);
   font-style: italic;
 }
 
+/* Typing dots */
+.typing-dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+.typing-dots span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ffffff;
+  animation: dot-bounce 1.2s infinite;
+}
+
+.typing-dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes dot-bounce {
+  0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
+  30% { opacity: 1; transform: translateY(-4px); }
+}
+
+/* Suggested questions */
+.chat-suggestions {
+  display: flex;
+  gap: 12px;
+  padding: 12px 24px;
+  overflow-x: auto;
+  background: var(--text);
+  flex-shrink: 0;
+}
+
+.chat-suggestions::-webkit-scrollbar {
+  display: none;
+}
+
+.chat-suggestion-chip {
+  flex-shrink: 0;
+  padding: 12px 16px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 400;
+  color: #ffffff;
+  cursor: pointer;
+  text-align: left;
+  max-width: 200px;
+  line-height: 1.6;
+  transition: border-color 0.15s;
+}
+
+.chat-suggestion-chip:hover {
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+/* Input area */
 .chat-input-area {
-  padding: 16px 24px;
-  border-top: 1px solid var(--border);
+  padding: 12px 24px;
   background: var(--card-bg);
   display: flex;
+  align-items: center;
   gap: 12px;
 }
 
 .chat-input-area textarea {
   flex: 1;
   border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 12px 16px;
+  border-radius: 24px;
+  padding: 10px 20px;
   font-size: 14px;
   font-family: var(--font-sans);
   resize: none;
@@ -449,22 +588,242 @@ html, body {
 }
 
 .chat-input-area button {
-  background: var(--accent);
-  color: #fff;
+  background: none;
   border: none;
-  border-radius: 8px;
-  padding: 0 20px;
-  font-size: 14px;
-  font-family: var(--font-sans);
+  padding: 0;
   cursor: pointer;
-  transition: opacity 0.15s;
-}
-
-.chat-input-area button:hover {
-  opacity: 0.85;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .chat-input-area button:disabled {
   opacity: 0.4;
   cursor: not-allowed;
+}
+
+/* Disclaimer */
+.chat-disclaimer {
+  padding: 8px 24px 12px;
+  background: var(--card-bg);
+  font-size: 11px;
+  color: var(--text-muted);
+  text-align: left;
+}
+
+/* ── Lawyer Lightbox ── */
+
+.lawyer-lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.lawyer-lightbox {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 520px;
+  max-height: 100%;
+  overflow-y: auto;
+  background: #ffffff;
+  border-radius: 8px;
+}
+
+.lawyer-lightbox-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  flex-shrink: 0;
+}
+
+.lawyer-lightbox-label {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.lawyer-lightbox-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lawyer-lightbox-content {
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.lawyer-lightbox-avatar {
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.lawyer-lightbox-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.lawyer-lightbox-quote {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.8;
+  color: var(--brand-dark);
+}
+
+.lawyer-lightbox-role {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.lawyer-lightbox-desc {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.8;
+  color: var(--text);
+}
+
+.lawyer-lightbox-cta {
+  margin: 24px;
+  padding: 14px;
+  background: var(--text);
+  color: #ffffff;
+  border: none;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+
+.lawyer-lightbox-cta:hover {
+  background: var(--gray-800);
+}
+
+/* ── Lightbox ── */
+
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  padding: 24px 40px;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.lightbox {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+}
+
+.lightbox-image {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  background: url('/assets/intro-lighbox-background.png') center / contain no-repeat #ffffff;
+}
+
+.lightbox-image img {
+  display: none;
+}
+
+.lightbox-body {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  flex-shrink: 0;
+  overflow-y: auto;
+}
+
+.lightbox-title {
+  font-family: var(--font-sans);
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.lightbox-text {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 2;
+  color: var(--text);
+}
+
+.lightbox-cta {
+  width: 100%;
+  padding: 16px;
+  background: var(--text);
+  color: #ffffff;
+  border: none;
+  font-family: var(--font-sans);
+  font-size: 28px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.lightbox-cta:hover {
+  background: var(--gray-800);
+}
+
+/* Tablet lightbox */
+@media (max-width: 1023px) {
+  .lightbox-body {
+    padding: 32px;
+  }
+
+  .lightbox-title {
+    font-size: 28px;
+  }
+}
+
+/* Mobile lightbox */
+@media (max-width: 767px) {
+  .lightbox-overlay {
+    padding: 24px;
+  }
+
+  .lightbox-body {
+    padding: 24px;
+    gap: 20px;
+  }
+
+  .lightbox-title {
+    font-size: 24px;
+  }
+
+  .lightbox-text {
+    font-size: 14px;
+  }
 }
