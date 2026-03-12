@@ -5,19 +5,22 @@
 }
 
 :root {
-  --bg: #faf9f7;
-  --text: #1a1a1a;
-  --text-secondary: #6b6b6b;
-  --border: #e0ddd8;
+  --bg: #F0E0DA;
+  --text: #1A1A1A;
+  --text-secondary: #6B6B6B;
+  --text-muted: #999999;
+  --border: #E0DDD8;
   --accent: #2c2c2c;
   --card-bg: #ffffff;
   --chat-user: #f0eeea;
   --chat-ai: #ffffff;
+  --font-serif: 'Noto Serif TC', serif;
+  --font-sans: 'Noto Sans TC', sans-serif;
 }
 
 html, body {
   height: 100%;
-  font-family: 'Noto Sans TC', sans-serif;
+  font-family: var(--font-sans);
   background: var(--bg);
   color: var(--text);
   -webkit-font-smoothing: antialiased;
@@ -27,67 +30,317 @@ html, body {
   height: 100%;
 }
 
-/* ── Selection Screen ── */
+/* ── Landing Page ── */
 
-.select-screen {
+.landing-page {
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
-  padding: 60px 40px;
-  max-width: 960px;
-  margin: 0 auto;
 }
 
-.select-screen h1 {
-  font-family: 'Noto Serif TC', serif;
-  font-size: 28px;
+/* Header */
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 60px;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.site-logo {
+  font-family: var(--font-serif);
+  font-size: 18px;
   font-weight: 700;
-  margin-bottom: 8px;
-  letter-spacing: 0.02em;
+  color: var(--text);
 }
 
-.select-screen .subtitle {
+.site-nav-link {
+  font-size: 13px;
   color: var(--text-secondary);
-  font-size: 14px;
-  margin-bottom: 48px;
-  font-weight: 300;
+  text-decoration: none;
 }
 
+.site-nav-link:hover {
+  color: var(--text);
+}
+
+/* Hero */
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 560px;
+  padding: 80px 120px;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
+    url('https://workers.paper.design/file-assets/01KKGAP9ES0CATZR7M9T6SCMD6/0RHZ5EKD4VPRJH1SY2R6PB6KQX.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.hero-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  max-width: 640px;
+  text-align: center;
+}
+
+.hero-title {
+  font-family: var(--font-serif);
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: #FFFFFF;
+}
+
+.hero-body {
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 2;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.hero-cta {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 2;
+  color: #FFFFFF;
+}
+
+/* Lawyer Section */
+.lawyer-section {
+  flex: 1;
+}
+
+.lawyer-section-header {
+  padding: 60px 120px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lawyer-section-title {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--text);
+}
+
+.lawyer-section-subtitle {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+/* Lawyer Grid — Desktop: 4 columns */
 .lawyers-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 120px;
+  gap: 24px;
 }
 
 .lawyer-card {
+  display: flex;
+  flex-direction: column;
+  width: 280px;
+  border-radius: 8px;
+  overflow: hidden;
   background: var(--card-bg);
   border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 24px;
   cursor: pointer;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .lawyer-card:hover {
   border-color: var(--accent);
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
 }
 
-.lawyer-card .name {
-  font-family: 'Noto Serif TC', serif;
+.lawyer-card-image {
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+}
+
+.lawyer-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.lawyer-card-info {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.lawyer-card-name {
+  font-family: var(--font-serif);
   font-size: 18px;
   font-weight: 700;
-  margin-bottom: 4px;
+  color: var(--text);
 }
 
-.lawyer-card .role {
+.lawyer-card-role {
   font-size: 13px;
   color: var(--text-secondary);
-  margin-bottom: 12px;
 }
 
-.lawyer-card .desc {
+.lawyer-card-desc {
   font-size: 13px;
+  font-weight: 300;
   line-height: 1.6;
   color: var(--text-secondary);
+}
+
+/* Footer */
+.site-footer {
+  padding: 40px 60px;
+  text-align: center;
+}
+
+.site-footer p {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--text-muted);
+}
+
+/* ── Tablet (768px–1023px) ── */
+@media (max-width: 1023px) {
+  .site-header {
+    padding: 16px 40px;
+  }
+
+  .site-logo {
+    font-size: 16px;
+  }
+
+  .hero {
+    min-height: 440px;
+    padding: 60px 60px;
+  }
+
+  .hero-content {
+    gap: 20px;
+    max-width: 540px;
+  }
+
+  .hero-title {
+    font-size: 28px;
+  }
+
+  .lawyer-section-header {
+    padding: 48px 40px 24px;
+  }
+
+  .lawyers-grid {
+    padding: 0 40px;
+    gap: 20px;
+  }
+
+  .lawyer-card {
+    width: calc(50% - 10px);
+  }
+
+  .lawyer-card-image {
+    aspect-ratio: 328 / 240;
+  }
+}
+
+/* ── Mobile (<768px) ── */
+@media (max-width: 767px) {
+  .site-header {
+    padding: 14px 20px;
+  }
+
+  .site-logo {
+    font-size: 15px;
+  }
+
+  .site-nav-link {
+    font-size: 12px;
+  }
+
+  .hero {
+    min-height: 380px;
+    padding: 48px 24px;
+  }
+
+  .hero-content {
+    gap: 16px;
+    max-width: 342px;
+  }
+
+  .hero-title {
+    font-size: 24px;
+  }
+
+  .hero-body {
+    font-size: 14px;
+  }
+
+  .hero-cta {
+    font-size: 14px;
+  }
+
+  .lawyer-section-header {
+    padding: 36px 20px 20px;
+  }
+
+  .lawyer-section-title {
+    font-size: 20px;
+  }
+
+  .lawyer-section-subtitle {
+    font-size: 13px;
+  }
+
+  .lawyers-grid {
+    padding: 0 20px;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .lawyer-card {
+    width: 100%;
+    flex-direction: row;
+  }
+
+  .lawyer-card-image {
+    width: 120px;
+    height: 140px;
+    aspect-ratio: auto;
+    flex-shrink: 0;
+  }
+
+  .lawyer-card-info {
+    padding: 16px;
+    justify-content: center;
+  }
+
+  .lawyer-card-name {
+    font-size: 16px;
+  }
+
+  .site-footer {
+    padding: 32px 20px;
+  }
 }
 
 /* ── Chat Screen ── */
@@ -114,7 +367,7 @@ html, body {
   padding: 6px 12px;
   font-size: 13px;
   cursor: pointer;
-  font-family: 'Noto Sans TC', sans-serif;
+  font-family: var(--font-sans);
   color: var(--text);
   transition: background 0.15s;
 }
@@ -124,7 +377,7 @@ html, body {
 }
 
 .chat-header .lawyer-info .name {
-  font-family: 'Noto Serif TC', serif;
+  font-family: var(--font-serif);
   font-size: 16px;
   font-weight: 700;
 }
@@ -182,7 +435,7 @@ html, body {
   border-radius: 8px;
   padding: 12px 16px;
   font-size: 14px;
-  font-family: 'Noto Sans TC', sans-serif;
+  font-family: var(--font-sans);
   resize: none;
   outline: none;
   line-height: 1.5;
@@ -202,7 +455,7 @@ html, body {
   border-radius: 8px;
   padding: 0 20px;
   font-size: 14px;
-  font-family: 'Noto Sans TC', sans-serif;
+  font-family: var(--font-sans);
   cursor: pointer;
   transition: opacity 0.15s;
 }

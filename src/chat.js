@@ -1,4 +1,22 @@
+let currentProvider = localStorage.getItem('provider') || 'gemini';
+
+export function getProvider() {
+  return currentProvider;
+}
+
+export function setProvider(provider) {
+  currentProvider = provider;
+  localStorage.setItem('provider', provider);
+}
+
 export async function sendMessage(systemPrompt, history, userMessage) {
+  if (currentProvider === 'anthropic') {
+    return sendAnthropic(systemPrompt, history, userMessage);
+  }
+  return sendGemini(systemPrompt, history, userMessage);
+}
+
+async function sendAnthropic(systemPrompt, history, userMessage) {
   const messages = [];
 
   for (const msg of history) {
@@ -7,10 +25,9 @@ export async function sendMessage(systemPrompt, history, userMessage) {
       content: msg.text,
     });
   }
-
   messages.push({ role: 'user', content: userMessage });
 
-  const res = await fetch('/api/messages', {
+  const res = await fetch('/api/anthropic', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -23,9 +40,44 @@ export async function sendMessage(systemPrompt, history, userMessage) {
 
   if (!res.ok) {
     const err = await res.text();
-    throw new Error(`API error: ${res.status} - ${err}`);
+    throw new Error(`Anthropic error: ${res.status} - ${err}`);
   }
 
   const data = await res.json();
   return data.content?.[0]?.text ?? '（無回應）';
+}
+
+async function sendGemini(systemPrompt, history, userMessage) {
+  const contents = [];
+
+  contents.push({
+    role: 'user',
+    parts: [{ text: systemPrompt + '\n\n請用繁體中文回答。以下是當事人的問題：' }],
+  });
+  contents.push({
+    role: 'model',
+    parts: [{ text: '好的，我了解了。請問有什麼我能幫您的？' }],
+  });
+
+  for (const msg of history) {
+    contents.push({
+      role: msg.role === 'user' ? 'user' : 'model',
+      parts: [{ text: msg.text }],
+    });
+  }
+  contents.push({ role: 'user', parts: [{ text: userMessage }] });
+
+  const res = await fetch('/api/gemini', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ contents }),
+  });
+
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`Gemini error: ${res.status} - ${err}`);
+  }
+
+  const data = await res.json();
+  return data.candidates?.[0]?.content?.parts?.[0]?.text ?? '（無回應）';
 }

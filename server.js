@@ -5,10 +5,11 @@ import { serveStatic } from '@hono/node-server/serve-static';
 const app = new Hono();
 
 const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY || '';
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY || '';
 const PORT = parseInt(process.env.PORT || '3000', 10);
 
-// API proxy
-app.post('/api/messages', async (c) => {
+// Anthropic proxy
+app.post('/api/anthropic', async (c) => {
   const body = await c.req.json();
 
   const res = await fetch('https://api.anthropic.com/v1/messages', {
@@ -20,6 +21,23 @@ app.post('/api/messages', async (c) => {
     },
     body: JSON.stringify(body),
   });
+
+  const data = await res.json();
+  return c.json(data, res.status);
+});
+
+// Gemini proxy
+app.post('/api/gemini', async (c) => {
+  const body = await c.req.json();
+
+  const res = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    }
+  );
 
   const data = await res.json();
   return c.json(data, res.status);

@@ -1,5 +1,5 @@
 import { lawyers } from './lawyers.js';
-import { sendMessage } from './chat.js';
+import { sendMessage, getProvider, setProvider } from './chat.js';
 
 const app = document.getElementById('app');
 
@@ -12,18 +12,45 @@ function renderSelectScreen() {
   chatHistory = [];
 
   app.innerHTML = `
-    <div class="select-screen">
-      <h1>Prima Facie</h1>
-      <p class="subtitle">選擇一位律師開始諮詢</p>
-      <div class="lawyers-grid">
-        ${lawyers.map(l => `
-          <div class="lawyer-card" data-id="${l.id}">
-            <div class="name">${l.name}</div>
-            <div class="role">${l.role}</div>
-            <div class="desc">${l.desc}</div>
-          </div>
-        `).join('')}
-      </div>
+    <div class="landing-page">
+      <header class="site-header">
+        <span class="site-logo">Prima Facie</span>
+        <a href="#" class="site-nav-link">關於本計畫</a>
+      </header>
+
+      <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+          <h1 class="hero-title">在性暴力的第一線，會看見什麼？</h1>
+          <p class="hero-body">在法庭，他們是代理人，將創傷「切割」成證據。在法袍下，他們是人，在制度與倫理的縫隙中掙扎。當法律無法解釋痛苦，當制度遺留了盲點，律師該如何消化那份沉重的情緒勞動？</p>
+          <p class="hero-cta">這裡整合了觀點迥異的法律靈魂的觀點，現在，歡迎選擇你的辯護人，開始你的詰問。</p>
+        </div>
+      </section>
+
+      <section class="lawyer-section">
+        <div class="lawyer-section-header">
+          <h2 class="lawyer-section-title">在開始對話前，選擇你的律師</h2>
+          <p class="lawyer-section-subtitle">每位律師有不同的專長與風格，選擇最適合你情境的一位。</p>
+        </div>
+        <div class="lawyers-grid">
+          ${lawyers.map(l => `
+            <div class="lawyer-card" data-id="${l.id}">
+              <div class="lawyer-card-image">
+                <img src="${l.image}" alt="${l.name}" loading="lazy" />
+              </div>
+              <div class="lawyer-card-info">
+                <div class="lawyer-card-name">${l.name}</div>
+                <div class="lawyer-card-role">${l.role}</div>
+                <div class="lawyer-card-desc">${l.desc}</div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </section>
+
+      <footer class="site-footer">
+        <p>Prima Facie — 由 AI 驅動的模擬法律諮詢體驗。本服務不構成法律建議。</p>
+      </footer>
     </div>
   `;
 
