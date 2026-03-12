@@ -8,7 +8,7 @@ const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY || '';
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY || '';
 const PORT = parseInt(process.env.PORT || '3000', 10);
 
-// Anthropic proxy
+// Anthropic proxy (supports streaming)
 app.post('/api/anthropic', async (c) => {
   const body = await c.req.json();
 
@@ -21,6 +21,17 @@ app.post('/api/anthropic', async (c) => {
     },
     body: JSON.stringify(body),
   });
+
+  if (body.stream) {
+    return new Response(res.body, {
+      status: res.status,
+      headers: {
+        'Content-Type': 'text/event-stream',
+        'Cache-Control': 'no-cache',
+        'Connection': 'keep-alive',
+      },
+    });
+  }
 
   const data = await res.json();
   return c.json(data, res.status);
@@ -44,7 +55,12 @@ app.post('/api/gemini', async (c) => {
 });
 
 // Serve static files from dist/
-app.use('/*', serveStatic({ root: './dist' }));
+app.use('/*', serveStatic({
+  root: './dist',
+  mimes: {
+    svg: 'image/svg+xml',
+  },
+}));
 
 // SPA fallback
 app.get('*', serveStatic({ root: './dist', path: '/index.html' }));
