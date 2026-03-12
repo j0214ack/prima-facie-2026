@@ -33,7 +33,7 @@ function showLightbox() {
         <img src="/assets/intro-lighbox-background.png" alt="" />
       </div>
       <div class="lightbox-body">
-        <h2 class="lightbox-title">歡迎來到虛擬的 「律師辦公室」</h2>
+        <h2 class="lightbox-title">歡迎來到虛擬的<br class="mobile-br" />「律師辦公室」</h2>
         <div class="lightbox-text">
           <p>「Prima Facie」直譯為「原本以為」，在法律上則指「乍看之下即成立的證據」。</p>
           <p>然而，在權勢關係與性暴力的情境中，創傷真的能被「證據」完整呈現嗎？「原本以為」往往成為所有創傷敘事的起點：</p>
@@ -66,9 +66,11 @@ function showLawyerLightbox(lawyer) {
         <div class="lawyer-lightbox-avatar">
           <img src="${lawyer.image}" alt="${lawyer.name}" />
         </div>
-        <p class="lawyer-lightbox-quote">「${lawyer.quote || ''}」</p>
-        <h3 class="lawyer-lightbox-role">${lawyer.roleTitle || lawyer.role}</h3>
-        <p class="lawyer-lightbox-desc">${lawyer.longDesc || lawyer.desc}</p>
+        <div class="lawyer-lightbox-details">
+          <p class="lawyer-lightbox-quote">「${lawyer.quote || ''}」</p>
+          <h3 class="lawyer-lightbox-role">${lawyer.roleTitle || lawyer.role}</h3>
+          <p class="lawyer-lightbox-desc">${lawyer.longDesc || lawyer.desc}</p>
+        </div>
       </div>
       <button class="lawyer-lightbox-cta">開始聊聊 →</button>
     </div>
