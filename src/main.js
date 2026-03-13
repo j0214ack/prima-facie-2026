@@ -185,6 +185,7 @@ function renderChatScreen(lawyer) {
         </div>
         <button class="chat-switch-btn">換律師聊</button>
       </div>
+      <div class="chat-messages-wrap">
       <div class="chat-messages" id="messages">
         <div class="chat-welcome">
           <div class="chat-welcome-avatar">
@@ -192,6 +193,8 @@ function renderChatScreen(lawyer) {
           </div>
           <p class="chat-welcome-text">您可以選擇預設問題，或是由自己發問。<br/>與議題無關的話題將會被引導回正題。</p>
         </div>
+      </div>
+      <button class="scroll-to-bottom" id="scroll-to-bottom" style="display:none;">↓</button>
       </div>
       <div class="chat-suggestions" id="suggestions">
         ${initialQuestions.map(q => `<button class="chat-suggestion-chip">${q}</button>`).join('')}
@@ -209,6 +212,44 @@ function renderChatScreen(lawyer) {
   const sendBtn = document.getElementById('send-btn');
   const messages = document.getElementById('messages');
   const suggestions = document.getElementById('suggestions');
+  const scrollBtn = document.getElementById('scroll-to-bottom');
+
+  // Auto-scroll management
+  let autoScroll = true;
+  let programmaticScroll = false;
+
+  function scrollToBottom() {
+    programmaticScroll = true;
+    messages.scrollTop = messages.scrollHeight;
+    // Reset flag after browser processes the scroll event
+    requestAnimationFrame(() => { programmaticScroll = false; });
+  }
+
+  function maybeScroll() {
+    if (autoScroll) scrollToBottom();
+  }
+
+  function isAtBottom() {
+    return messages.scrollHeight - messages.scrollTop - messages.clientHeight < 2;
+  }
+
+  messages.addEventListener('scroll', () => {
+    if (programmaticScroll) return;
+    // User-initiated scroll
+    if (isAtBottom()) {
+      autoScroll = true;
+      scrollBtn.style.display = 'none';
+    } else {
+      autoScroll = false;
+      scrollBtn.style.display = '';
+    }
+  });
+
+  scrollBtn.addEventListener('click', () => {
+    autoScroll = true;
+    scrollBtn.style.display = 'none';
+    scrollToBottom();
+  });
 
   switchBtn.addEventListener('click', renderSelectScreen);
 
@@ -223,7 +264,7 @@ function renderChatScreen(lawyer) {
         handleSend();
       });
     });
-    messages.scrollTop = messages.scrollHeight;
+    maybeScroll();
   }
 
   // Initial suggested question chips
@@ -257,11 +298,15 @@ function renderChatScreen(lawyer) {
     const welcome = app.querySelector('.chat-welcome');
     if (welcome) welcome.remove();
     suggestions.style.display = 'none';
+    // Re-enable auto-scroll when user sends a message
+    autoScroll = true;
+    scrollBtn.style.display = 'none';
     // Mark the user's text as used so it won't appear as a suggestion
     usedQuestions.add(text);
 
     isLoading = true;
     sendBtn.disabled = true;
+    input.disabled = true;
     input.value = '';
     input.style.height = '44px';
 
@@ -273,7 +318,7 @@ function renderChatScreen(lawyer) {
     dotsEl.className = 'typing-dots';
     dotsEl.innerHTML = '<span></span><span></span><span></span>';
     streamEl.appendChild(dotsEl);
-    messages.scrollTop = messages.scrollHeight;
+    maybeScroll();
 
     let fullReply = '';
     let displayedLen = 0;
@@ -299,7 +344,7 @@ function renderChatScreen(lawyer) {
     function updateStreamEl(text, showDots) {
       streamEl.textContent = text;
       if (showDots) streamEl.appendChild(dotsEl);
-      messages.scrollTop = messages.scrollHeight;
+      maybeScroll();
     }
 
     function typewriterTick(targetLen, resolve) {
@@ -382,6 +427,7 @@ function renderChatScreen(lawyer) {
 
     isLoading = false;
     sendBtn.disabled = false;
+    input.disabled = false;
     input.focus();
   }
 
@@ -390,7 +436,7 @@ function renderChatScreen(lawyer) {
     div.className = `message ${cls}`;
     div.textContent = text;
     messages.appendChild(div);
-    messages.scrollTop = messages.scrollHeight;
+    maybeScroll();
     return div;
   }
 }
