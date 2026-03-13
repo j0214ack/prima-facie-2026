@@ -156,11 +156,21 @@ function renderChatScreen(lawyer) {
   currentLawyer = lawyer;
   chatHistory = [];
 
-  const suggestedQuestions = lawyer.suggestedQuestions || [
-    '你以前處理過，最讓你感到無力的一件案子是什麼呢？',
-    '你以前處理過，最讓你感到無力的一件案子是什麼呢？',
-    '你以前處理過，最讓你感到無力的一件案子是什麼呢？',
-  ];
+  const questionPool = [...(lawyer.suggestedQuestions || [])];
+  const usedQuestions = new Set();
+
+  function pickQuestions(count) {
+    const available = questionPool.filter(q => !usedQuestions.has(q));
+    const picked = [];
+    for (let i = 0; i < count && available.length > 0; i++) {
+      const idx = Math.floor(Math.random() * available.length);
+      picked.push(available.splice(idx, 1)[0]);
+    }
+    return picked;
+  }
+
+  const initialQuestions = pickQuestions(3);
+  initialQuestions.forEach(q => usedQuestions.add(q));
 
   app.innerHTML = `
     <div class="chat-screen">
@@ -184,7 +194,7 @@ function renderChatScreen(lawyer) {
         </div>
       </div>
       <div class="chat-suggestions" id="suggestions">
-        ${suggestedQuestions.map(q => `<button class="chat-suggestion-chip">${q}</button>`).join('')}
+        ${initialQuestions.map(q => `<button class="chat-suggestion-chip">${q}</button>`).join('')}
       </div>
       <div class="chat-input-area">
         <textarea id="chat-input" placeholder="請輸入你的好奇..." rows="1"></textarea>
@@ -202,13 +212,22 @@ function renderChatScreen(lawyer) {
 
   switchBtn.addEventListener('click', renderSelectScreen);
 
-  // Suggested question chips
-  app.querySelectorAll('.chat-suggestion-chip').forEach(chip => {
-    chip.addEventListener('click', () => {
-      input.value = chip.textContent;
-      handleSend();
+  function updateSuggestionChips(questions) {
+    suggestions.innerHTML = questions
+      .map(q => `<button class="chat-suggestion-chip">${q}</button>`)
+      .join('');
+    suggestions.style.display = '';
+    suggestions.querySelectorAll('.chat-suggestion-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        input.value = chip.textContent;
+        handleSend();
+      });
     });
-  });
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  // Initial suggested question chips
+  updateSuggestionChips(initialQuestions);
 
   // Track IME composition state
   let isComposing = false;
@@ -234,10 +253,12 @@ function renderChatScreen(lawyer) {
     const text = input.value.trim();
     if (!text || isLoading) return;
 
-    // Hide welcome and suggestions on first message
+    // Hide welcome on first message, always hide suggestions during loading
     const welcome = app.querySelector('.chat-welcome');
     if (welcome) welcome.remove();
-    if (suggestions) suggestions.style.display = 'none';
+    suggestions.style.display = 'none';
+    // Mark the user's text as used so it won't appear as a suggestion
+    usedQuestions.add(text);
 
     isLoading = true;
     sendBtn.disabled = true;
@@ -339,6 +360,13 @@ function renderChatScreen(lawyer) {
       await processBuffer();
       dotsEl.remove();
       chatHistory.push({ role: 'ai', text: reply });
+
+      // Show follow-up question chips
+      const followUps = pickQuestions(2);
+      if (followUps.length > 0) {
+        followUps.forEach(q => usedQuestions.add(q));
+        updateSuggestionChips(followUps);
+      }
     } catch (err) {
       dotsEl.remove();
       streamEl.textContent = `發生錯誤：${err.message}`;
