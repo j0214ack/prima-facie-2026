@@ -358,6 +358,14 @@ function renderChatScreen(lawyer) {
       fullReply = reply;
       streamDone = true;
       await processBuffer();
+      // Wait for any in-flight typewriter to finish
+      while (typewriterRunning) {
+        await new Promise(r => setTimeout(r, 50));
+      }
+      // Final flush in case anything remains
+      if (displayedLen < fullReply.length) {
+        await typewrite(fullReply.length);
+      }
       dotsEl.remove();
       chatHistory.push({ role: 'ai', text: reply });
 
