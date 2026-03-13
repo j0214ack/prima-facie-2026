@@ -86,7 +86,7 @@ html, body {
 .hero-bg {
   position: absolute;
   inset: 0;
-  background: url('/assets/redline-bg.png') center / cover no-repeat;
+  background: url('/assets/redline-bg.webp') center / cover no-repeat;
 }
 
 .hero-content {
@@ -136,7 +136,7 @@ html, body {
 /* Lawyer Section */
 .lawyer-section {
   flex: 1;
-  background: url('/assets/lawyer-background.png') center / cover no-repeat;
+  background: url('/assets/lawyer-background.webp') center / cover no-repeat;
   padding: 40px;
 }
 
@@ -431,7 +431,7 @@ html, body {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  background: url('/assets/redline-bg.png') center / cover no-repeat;
+  background: url('/assets/redline-bg.webp') center / cover no-repeat;
 }
 
 /* Welcome state */
@@ -780,7 +780,7 @@ html, body {
   flex: 1;
   min-height: 0;
   overflow: hidden;
-  background: url('/assets/intro-lighbox-background.png') center / contain no-repeat #ffffff;
+  background: url('/assets/intro-lighbox-background.webp') center / contain no-repeat #ffffff;
 }
 
 .lightbox-image img {

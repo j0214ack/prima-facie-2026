@@ -30,7 +30,7 @@ function showLightbox() {
   overlay.innerHTML = `
     <div class="lightbox">
       <div class="lightbox-image">
-        <img src="/assets/intro-lighbox-background.png" alt="" />
+        <img src="/assets/intro-lighbox-background.webp" alt="" />
       </div>
       <div class="lightbox-body">
         <h2 class="lightbox-title">歡迎來到虛擬的<br class="mobile-br" />「律師辦公室」</h2>
@@ -326,7 +326,7 @@ function renderChatScreen(lawyer) {
 
     try {
       const reply = await sendMessage(
-        currentLawyer.systemPrompt,
+        currentLawyer.id,
         chatHistory.slice(0, -1),
         text,
         (chunk) => {

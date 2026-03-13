@@ -8,7 +8,7 @@ const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY || '';
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY || '';
 const PORT = parseInt(process.env.PORT || '3000', 10);
 
-// Anthropic proxy (supports streaming)
+// Anthropic proxy (supports streaming + prompt caching)
 app.post('/api/anthropic', async (c) => {
   const body = await c.req.json();
 
@@ -18,6 +18,7 @@ app.post('/api/anthropic', async (c) => {
       'Content-Type': 'application/json',
       'x-api-key': ANTHROPIC_API_KEY,
       'anthropic-version': '2023-06-01',
+      'anthropic-beta': 'prompt-caching-2024-07-31',
     },
     body: JSON.stringify(body),
   });

@@ -1,4 +1,9 @@
+import { lawyers, loadChunks, buildSystemPrompt } from './lawyers.js';
+
 let currentProvider = localStorage.getItem('provider') || 'anthropic';
+
+// Cache built system prompts per lawyer (avoids rebuilding every message)
+const promptCache = {};
 
 export function getProvider() {
   return currentProvider;
@@ -9,16 +14,27 @@ export function setProvider(provider) {
   localStorage.setItem('provider', provider);
 }
 
-export async function sendMessage(systemPrompt, history, userMessage, onChunk) {
-  if (currentProvider === 'anthropic') {
-    return sendAnthropic(systemPrompt, history, userMessage, onChunk);
-  }
-  return sendGemini(systemPrompt, history, userMessage);
+async function getSystemPrompt(lawyerId) {
+  if (promptCache[lawyerId]) return promptCache[lawyerId];
+  const lawyer = lawyers.find(l => l.id === lawyerId);
+  if (!lawyer) throw new Error(`Unknown lawyer: ${lawyerId}`);
+  const chunks = await loadChunks(lawyerId);
+  const prompt = buildSystemPrompt(lawyer, chunks);
+  promptCache[lawyerId] = prompt;
+  return prompt;
 }
 
-async function sendAnthropic(systemPrompt, history, userMessage, onChunk) {
-  const messages = [];
+export async function sendMessage(lawyerId, history, userMessage, onChunk) {
+  if (currentProvider === 'anthropic') {
+    return sendAnthropic(lawyerId, history, userMessage, onChunk);
+  }
+  return sendGemini(lawyerId, history, userMessage);
+}
 
+async function sendAnthropic(lawyerId, history, userMessage, onChunk) {
+  const systemPrompt = await getSystemPrompt(lawyerId);
+
+  const messages = [];
   for (const msg of history) {
     messages.push({
       role: msg.role === 'user' ? 'user' : 'assistant',
@@ -34,7 +50,14 @@ async function sendAnthropic(systemPrompt, history, userMessage, onChunk) {
       model: 'claude-sonnet-4-20250514',
       max_tokens: 1024,
       stream: true,
-      system: systemPrompt + '\n\n請用繁體中文回答。',
+      system: [
+        {
+          type: 'text',
+          text: systemPrompt,
+          // ttl options: omit for 5min (25% write surcharge), or set for longer (2x write price)
+          cache_control: { type: 'ephemeral', ttl: '1h' },
+        },
+      ],
       messages,
     }),
   });
@@ -75,9 +98,10 @@ async function sendAnthropic(systemPrompt, history, userMessage, onChunk) {
   return fullText || '（無回應）';
 }
 
-async function sendGemini(systemPrompt, history, userMessage) {
-  const contents = [];
+async function sendGemini(lawyerId, history, userMessage) {
+  const systemPrompt = await getSystemPrompt(lawyerId);
 
+  const contents = [];
   contents.push({
     role: 'user',
     parts: [{ text: systemPrompt + '\n\n請用繁體中文回答。以下是當事人的問題：' }],
