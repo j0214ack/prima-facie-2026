@@ -1,8 +1,23 @@
 import { Hono } from 'hono';
 import { serve } from '@hono/node-server';
 import { serveStatic } from '@hono/node-server/serve-static';
+import { compress } from 'hono/compress';
 
 const app = new Hono();
+
+// Enable gzip compression for text-based responses
+app.use('*', compress());
+
+// Cache immutable hashed assets for 1 year
+app.use('/assets/*', async (c, next) => {
+  await next();
+  const path = c.req.path;
+  if (/\.[a-zA-Z0-9_-]{8,}\.(js|css)$/.test(path)) {
+    c.res.headers.set('Cache-Control', 'public, max-age=31536000, immutable');
+  } else if (/\.(webp|svg|png|jpg)$/.test(path)) {
+    c.res.headers.set('Cache-Control', 'public, max-age=86400');
+  }
+});
 
 const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY || '';
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY || '';

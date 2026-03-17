@@ -832,7 +832,7 @@ html, body {
 
 .lightbox-image {
   flex: 1;
-  min-height: 0;
+  min-height: 200px;
   overflow: hidden;
   padding: 24px;
   background: url('/assets/intro-lighbox-background.webp') center / contain no-repeat #ffffff;
