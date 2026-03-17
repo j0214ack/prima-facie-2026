@@ -60,6 +60,7 @@ app.use('/*', serveStatic({
   root: './dist',
   mimes: {
     svg: 'image/svg+xml',
+    webp: 'image/webp',
   },
 }));
 
