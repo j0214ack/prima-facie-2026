@@ -33,12 +33,14 @@ function showLightbox() {
         <img src="/assets/intro-lighbox-background.webp" alt="" />
       </div>
       <div class="lightbox-body">
-        <h2 class="lightbox-title">歡迎來到虛擬的<br class="mobile-br" />「律師辦公室」</h2>
-        <div class="lightbox-text">
-          <p>「Prima Facie」直譯為「原本以為」，在法律上則指「乍看之下即成立的證據」。</p>
-          <p>然而，在權勢關係與性暴力的情境中，創傷真的能被「證據」完整呈現嗎？「原本以為」往往成為所有創傷敘事的起點：</p>
-          <p>「原本以為，他是好人。」<br/>「原本以為，可法應還給我正義。」<br/>「原本以為，只要把創傷翻譯成法律代價，痛苦就會終止。」</p>
-          <p>在這個 AI 對話空間中，我們整合了多位律師、觀點迥異的訪談節錄。<br/>在這裡，法律不再只是冰冷條文，而是一套交織著個人經驗、詮釋與父權盲點的系統。<br/>你可以與不同的「律師」展開對話，模擬身在性平衝突第一線的律師們的經驗與各種立場。</p>
+        <div class="lightbox-text-wrap">
+          <h2 class="lightbox-title">歡迎來到虛擬的<br class="mobile-br" />「律師辦公室」</h2>
+          <div class="lightbox-text">
+            <p>「Prima Facie」直譯為「原本以為」，在法律上則指「乍看之下即成立的證據」。</p>
+            <p>然而，在權勢關係與性暴力的情境中，創傷真的能被「證據」完整呈現嗎？「原本以為」往往成為所有創傷敘事的起點：</p>
+            <p>「原本以為，他是好人。」<br/>「原本以為，可法應還給我正義。」<br/>「原本以為，只要把創傷翻譯成法律代價，痛苦就會終止。」</p>
+            <p>在這個 AI 對話空間中，我們整合了多位律師、觀點迥異的訪談節錄。<br/>在這裡，法律不再只是冰冷條文，而是一套交織著個人經驗、詮釋與父權盲點的系統。<br/>你可以與不同的「律師」展開對話，模擬身在性平衝突第一線的律師們的經驗與各種立場。</p>
+          </div>
         </div>
         <button class="lightbox-cta">跟律師聊聊 →</button>
       </div>
@@ -67,9 +69,9 @@ function showLawyerLightbox(lawyer) {
           <img src="${lawyer.image}" alt="${lawyer.name}" />
         </div>
         <div class="lawyer-lightbox-details">
-          <p class="lawyer-lightbox-quote">「${lawyer.quote || ''}」</p>
           <h3 class="lawyer-lightbox-role">${lawyer.roleTitle || lawyer.role}</h3>
           <p class="lawyer-lightbox-desc">${lawyer.longDesc || lawyer.desc}</p>
+          <p class="lawyer-lightbox-quote">「${lawyer.quote || ''}」</p>
         </div>
       </div>
       <button class="lawyer-lightbox-cta">開始聊聊 →</button>
@@ -129,8 +131,6 @@ function renderSelectScreen() {
               </div>
               <div class="lawyer-card-info">
                 <div class="lawyer-card-name">${l.name}</div>
-                <div class="lawyer-card-role">${l.role}</div>
-                <div class="lawyer-card-desc">${l.desc}</div>
               </div>
             </div>
           `).join('')}
@@ -196,14 +196,16 @@ function renderChatScreen(lawyer) {
       </div>
       <button class="scroll-to-bottom" id="scroll-to-bottom" style="display:none;">↓</button>
       </div>
-      <div class="chat-suggestions" id="suggestions">
-        ${initialQuestions.map(q => `<button class="chat-suggestion-chip">${q}</button>`).join('')}
+      <div class="chat-bottom">
+        <div class="chat-suggestions" id="suggestions">
+          ${initialQuestions.map(q => `<button class="chat-suggestion-chip">${q}</button>`).join('')}
+        </div>
+        <div class="chat-input-area">
+          <textarea id="chat-input" placeholder="請輸入你的好奇..." rows="1"></textarea>
+          <button id="send-btn"><img src="/assets/send-button.svg" width="40" height="40" alt="送出" /></button>
+        </div>
+        <div class="chat-disclaimer"><span>這是 AI 模擬對話情境，供教育用途，不構成法律建議。</span></div>
       </div>
-      <div class="chat-input-area">
-        <textarea id="chat-input" placeholder="請輸入你的好奇..." rows="1"></textarea>
-        <button id="send-btn"><img src="/assets/send-button.svg" width="40" height="40" alt="送出" /></button>
-      </div>
-      <div class="chat-disclaimer">這是 AI 模擬對話情境，供教育用途，不構成法律建議。</div>
     </div>
   `;
 

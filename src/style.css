@@ -112,7 +112,7 @@ html, body {
 }
 
 .hero-body {
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 300;
   line-height: 2;
   color: var(--text);
@@ -123,7 +123,7 @@ html, body {
 }
 
 .hero-cta {
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 400;
   line-height: 2;
   color: var(--text);
@@ -203,6 +203,7 @@ html, body {
   padding: 8px 12px;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 6px;
 }
 
@@ -401,7 +402,7 @@ html, body {
 
 .chat-lawyer-name {
   font-family: var(--font-sans);
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 700;
   color: var(--text);
 }
@@ -411,7 +412,7 @@ html, body {
   border: 1px solid var(--text);
   border-radius: 4px;
   padding: 6px 16px;
-  font-size: 13px;
+  font-size: 18px;
   font-family: var(--font-sans);
   font-weight: 500;
   color: var(--text);
@@ -489,10 +490,12 @@ html, body {
 
 .chat-welcome-text {
   font-family: var(--font-sans);
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 400;
   line-height: 2;
   color: var(--text);
+  background: #ffffff;
+  padding: 0 24px;
   text-align: center;
 }
 
@@ -500,7 +503,7 @@ html, body {
 .message {
   max-width: 640px;
   line-height: 1.7;
-  font-size: 14px;
+  font-size: 18px;
   padding: 14px 18px;
   border-radius: 10px;
   white-space: pre-wrap;
@@ -510,11 +513,13 @@ html, body {
 .message.ai {
   background: var(--brand-dark);
   align-self: flex-start;
+  border-bottom-left-radius: 0;
 }
 
 .message.user {
   background: var(--gray-900);
   align-self: flex-end;
+  border-bottom-right-radius: 0;
 }
 
 .message.typing {
@@ -558,7 +563,7 @@ html, body {
   gap: 12px;
   padding: 12px 24px;
   overflow-x: auto;
-  background: var(--text);
+  background: transparent;
   flex-shrink: 0;
 }
 
@@ -568,29 +573,35 @@ html, body {
 
 .chat-suggestion-chip {
   flex-shrink: 0;
-  padding: 12px 16px;
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 16px 20px;
+  background: var(--text);
+  border: none;
   border-radius: 4px;
   font-family: var(--font-sans);
-  font-size: 13px;
+  font-size: 18px;
   font-weight: 400;
   color: #ffffff;
   cursor: pointer;
   text-align: left;
-  max-width: 200px;
+  max-width: 280px;
   line-height: 1.6;
-  transition: border-color 0.15s;
+  transition: opacity 0.15s;
 }
 
 .chat-suggestion-chip:hover {
-  border-color: rgba(255, 255, 255, 0.7);
+  opacity: 0.85;
+}
+
+/* Chat bottom area */
+.chat-bottom {
+  flex-shrink: 0;
+  background: url('/assets/reddot-bg.webp') center / 300% auto no-repeat;
+  background-color: #f5f0eb;
 }
 
 /* Input area */
 .chat-input-area {
   padding: 12px 24px;
-  background: var(--card-bg);
   display: flex;
   align-items: center;
   gap: 12px;
@@ -599,9 +610,9 @@ html, body {
 .chat-input-area textarea {
   flex: 1;
   border: 1px solid var(--border);
-  border-radius: 24px;
-  padding: 10px 20px;
-  font-size: 14px;
+  border-radius: 4px;
+  padding: 10px 16px;
+  font-size: 18px;
   font-family: var(--font-sans);
   resize: none;
   outline: none;
@@ -609,6 +620,12 @@ html, body {
   height: 44px;
   max-height: 120px;
   transition: border-color 0.15s;
+  background: #ffffff;
+  color: var(--text);
+}
+
+.chat-input-area textarea::placeholder {
+  color: var(--text-muted);
 }
 
 .chat-input-area textarea:focus {
@@ -639,10 +656,14 @@ html, body {
 /* Disclaimer */
 .chat-disclaimer {
   padding: 8px 24px 12px;
-  background: var(--card-bg);
   font-size: 11px;
-  color: var(--text-muted);
+  color: #ffffff;
   text-align: left;
+}
+
+.chat-disclaimer span {
+  background: var(--text);
+  padding: 2px 8px;
 }
 
 /* ── Lawyer Lightbox ── */
@@ -679,7 +700,7 @@ html, body {
 
 .lawyer-lightbox-label {
   font-family: var(--font-sans);
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 700;
   color: var(--text);
 }
@@ -724,7 +745,7 @@ html, body {
 
 .lawyer-lightbox-quote {
   font-family: var(--font-sans);
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 400;
   line-height: 1.8;
   color: var(--brand-dark);
@@ -732,14 +753,14 @@ html, body {
 
 .lawyer-lightbox-role {
   font-family: var(--font-sans);
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 700;
   color: var(--text);
 }
 
 .lawyer-lightbox-desc {
   font-family: var(--font-sans);
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 400;
   line-height: 1.8;
   color: var(--text);
@@ -797,7 +818,7 @@ html, body {
   inset: 0;
   z-index: 1000;
   display: flex;
-  padding: 24px 40px;
+  padding: 40px 40px;
   background: rgba(0, 0, 0, 0.5);
 }
 
@@ -813,6 +834,7 @@ html, body {
   flex: 1;
   min-height: 0;
   overflow: hidden;
+  padding: 24px;
   background: url('/assets/intro-lighbox-background.webp') center / contain no-repeat #ffffff;
 }
 
@@ -821,12 +843,19 @@ html, body {
 }
 
 .lightbox-body {
-  padding: 40px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.lightbox-text-wrap {
+  flex: 1;
+  padding: 40px 40px 24px;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 24px;
-  flex-shrink: 0;
-  overflow-y: auto;
 }
 
 .lightbox-title {
@@ -841,7 +870,7 @@ html, body {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 400;
   line-height: 2;
   color: var(--text);
@@ -858,6 +887,7 @@ html, body {
   font-weight: 700;
   cursor: pointer;
   transition: background 0.15s;
+  flex-shrink: 0;
 }
 
 .lightbox-cta:hover {
@@ -866,8 +896,8 @@ html, body {
 
 /* Tablet lightbox */
 @media (max-width: 1023px) {
-  .lightbox-body {
-    padding: 32px;
+  .lightbox-text-wrap {
+    padding: 32px 32px 24px;
   }
 
   .lightbox-title {
@@ -885,8 +915,8 @@ html, body {
     padding: 24px;
   }
 
-  .lightbox-body {
-    padding: 20px;
+  .lightbox-text-wrap {
+    padding: 20px 20px 12px;
     gap: 12px;
   }
 
