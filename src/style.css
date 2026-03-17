@@ -86,7 +86,7 @@ html, body {
 .hero-bg {
   position: absolute;
   inset: 0;
-  background: url('/assets/redline-bg.webp') center / cover no-repeat;
+  background: url('https://cdn.jsdelivr.net/gh/j0214ack/prima-facie-2026@main/public/assets/redline-bg.webp') center / cover no-repeat;
 }
 
 .hero-content {
@@ -136,7 +136,7 @@ html, body {
 /* Lawyer Section */
 .lawyer-section {
   flex: 1;
-  background: url('/assets/lawyer-background.webp') center / cover no-repeat;
+  background: url('https://cdn.jsdelivr.net/gh/j0214ack/prima-facie-2026@main/public/assets/lawyer-background.webp') center / cover no-repeat;
   padding: 40px;
 }
 
@@ -439,7 +439,7 @@ html, body {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  background: url('/assets/redline-bg.webp') center / cover no-repeat;
+  background: url('https://cdn.jsdelivr.net/gh/j0214ack/prima-facie-2026@main/public/assets/redline-bg.webp') center / cover no-repeat;
 }
 
 .scroll-to-bottom {
@@ -595,7 +595,7 @@ html, body {
 /* Chat bottom area */
 .chat-bottom {
   flex-shrink: 0;
-  background: url('/assets/reddot-bg.webp') center / 300% auto no-repeat;
+  background: url('https://cdn.jsdelivr.net/gh/j0214ack/prima-facie-2026@main/public/assets/reddot-bg.webp') center / 300% auto no-repeat;
   background-color: #f5f0eb;
 }
 
@@ -835,7 +835,7 @@ html, body {
   min-height: 200px;
   overflow: hidden;
   padding: 24px;
-  background: url('/assets/intro-lighbox-background.webp') center / contain no-repeat #ffffff;
+  background: url('https://cdn.jsdelivr.net/gh/j0214ack/prima-facie-2026@main/public/assets/intro-lighbox-background.webp') center / contain no-repeat #ffffff;
   background-origin: content-box;
 }
 

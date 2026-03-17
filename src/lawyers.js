@@ -69,7 +69,7 @@ export const lawyers = [
     quote: '我們永遠不會知道真相，只能一塊一塊把拼圖拼起來。',
     roleTitle: '追尋真相的辯護者',
     longDesc: '經驗豐富的刑事辯護律師，曾在地方法院性侵專庭擔任法官助理。主要代理加害人辯護，也曾代理性影像犯罪被害人。參與過性影像犯罪律師聯署行動，相信程序正義是目前能做到的正義。',
-    image: '/assets/lawyer1.webp',
+    image: 'https://cdn.jsdelivr.net/gh/j0214ack/prima-facie-2026@main/public/assets/lawyer1.webp',
     suggestedQuestions: [
       '你覺得正義是什麼？',
       '加害人通常怎麼看待自己的行為？',
@@ -96,7 +96,7 @@ export const lawyers = [
     quote: '刑法是事後修補，像石頭丟進水裡，法律只是試著讓漣漪消失。',
     roleTitle: '務實直率的辯護者',
     longDesc: '在中南部執業的刑事訴訟律師，師承知名刑法學者。辯護與告訴案件比例各半，曾參與冤案救援組織。主張「去除性的神秘化」讓被害人更快報案保全證據。',
-    image: '/assets/lawyer2.webp',
+    image: 'https://cdn.jsdelivr.net/gh/j0214ack/prima-facie-2026@main/public/assets/lawyer2.webp',
     suggestedQuestions: [
       '你怎麼看性犯罪的證據問題？',
       '你處理過讓你最震撼的案件是什麼？',
@@ -123,7 +123,7 @@ export const lawyers = [
     quote: '正義應該在於衡平。',
     roleTitle: '冷靜分析的調查者',
     longDesc: '前資料分析師轉行律師，專精性騷擾案件調查。自我定位為「專業查案人」，兩三年間處理十多件案件。重視統計與趨勢分析，警惕獵巫式公審，認同桑德爾的正義論述。',
-    image: '/assets/lawyer3.webp',
+    image: 'https://cdn.jsdelivr.net/gh/j0214ack/prima-facie-2026@main/public/assets/lawyer3.webp',
     suggestedQuestions: [
       '你怎麼看被害人發聲這件事？',
       '什麼是你認為的正義？',
@@ -149,7 +149,7 @@ export const lawyers = [
     quote: '散布性私密影像的惡性，在很多人心中大概跟闖紅燈差不多。',
     roleTitle: '前線實戰的辯護者',
     longDesc: '年輕女性律師，處理過大量數位性暴力案件，包含Telegram群組散布、AirDrop傳送性私密影像等新型態犯罪。觀察到法庭中明顯的性別動態差異。',
-    image: '/assets/lawyer4.webp',
+    image: 'https://cdn.jsdelivr.net/gh/j0214ack/prima-facie-2026@main/public/assets/lawyer4.webp',
     suggestedQuestions: [
       '數位性暴力案件跟傳統性犯罪有什麼不同？',
       '你在法庭上觀察到什麼性別差異？',
@@ -176,7 +176,7 @@ export const lawyers = [
     quote: '我不知道答案，但我覺得教育是最重要的。',
     roleTitle: '溫柔觀察的調查者',
     longDesc: '女性律師，主要處理校園性平調查案件。近年以調查委員身分參與較多行政調查。關注世代差異對性平認知的影響，相信教育是改變的根本。對未成年案件雙方都懷有深切關懷。',
-    image: '/assets/lawyer5.webp',
+    image: 'https://cdn.jsdelivr.net/gh/j0214ack/prima-facie-2026@main/public/assets/lawyer5.webp',
     suggestedQuestions: [
       '校園性平案件中最讓你困擾的是什麼？',
       '你覺得年輕世代對性平的認知有什麼不同？',
@@ -203,7 +203,7 @@ export const lawyers = [
     quote: '策略會變，但心不會變。',
     roleTitle: '堅守原則的辯護者',
     longDesc: '同時處理刑事辯護、被害人代理與校園性平調查的律師。信仰佛教，有明確的案件篩選倫理。認為性犯罪承載了太多社會定義與道德重量，與其他犯罪本質不同。',
-    image: '/assets/lawyer6.webp',
+    image: 'https://cdn.jsdelivr.net/gh/j0214ack/prima-facie-2026@main/public/assets/lawyer6.webp',
     suggestedQuestions: [
       '你怎麼決定要不要接一個案件？',
       '性犯罪跟其他犯罪有什麼本質差異？',
@@ -230,7 +230,7 @@ export const lawyers = [
     quote: '如果連我都覺得不夠了，那其他人呢？',
     roleTitle: '自我詰問的調查者',
     longDesc: '近期從企業法務轉為獨立執業，主要處理職場性騷擾的外部調查。育有幼兒的母親，也在學校做法治教育志工。即使受過創傷知情訓練，仍常質疑自己是否做得足夠。',
-    image: '/assets/lawyer7.webp',
+    image: 'https://cdn.jsdelivr.net/gh/j0214ack/prima-facie-2026@main/public/assets/lawyer7.webp',
     suggestedQuestions: [
       '職場性騷擾案件中最常見的困境是什麼？',
       '你覺得站出來檢舉值得嗎？',

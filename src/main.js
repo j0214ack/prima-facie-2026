@@ -30,7 +30,7 @@ function showLightbox() {
   overlay.innerHTML = `
     <div class="lightbox">
       <div class="lightbox-image">
-        <img src="/assets/intro-lighbox-background.webp" alt="" />
+        <img src="https://cdn.jsdelivr.net/gh/j0214ack/prima-facie-2026@main/public/assets/intro-lighbox-background.webp" alt="" />
       </div>
       <div class="lightbox-body">
         <div class="lightbox-text-wrap">
