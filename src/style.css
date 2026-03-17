@@ -836,6 +836,7 @@ html, body {
   overflow: hidden;
   padding: 24px;
   background: url('/assets/intro-lighbox-background.webp') center / contain no-repeat #ffffff;
+  background-origin: content-box;
 }
 
 .lightbox-image img {
