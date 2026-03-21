@@ -1,8 +1,9 @@
 import { lawyers, loadChunks, buildSystemPrompt } from './lawyers.js';
+import { getLang } from './i18n.js';
 
 let currentProvider = localStorage.getItem('provider') || 'anthropic';
 
-// Cache built system prompts per lawyer (avoids rebuilding every message)
+// Cache built system prompts per lawyer+lang
 const promptCache = {};
 
 export function getProvider() {
@@ -15,12 +16,14 @@ export function setProvider(provider) {
 }
 
 async function getSystemPrompt(lawyerId) {
-  if (promptCache[lawyerId]) return promptCache[lawyerId];
+  const lang = getLang();
+  const cacheKey = `${lawyerId}_${lang}`;
+  if (promptCache[cacheKey]) return promptCache[cacheKey];
   const lawyer = lawyers.find(l => l.id === lawyerId);
   if (!lawyer) throw new Error(`Unknown lawyer: ${lawyerId}`);
   const chunks = await loadChunks(lawyerId);
-  const prompt = buildSystemPrompt(lawyer, chunks);
-  promptCache[lawyerId] = prompt;
+  const prompt = buildSystemPrompt(lawyer, chunks, lang);
+  promptCache[cacheKey] = prompt;
   return prompt;
 }
 
@@ -95,7 +98,7 @@ async function sendAnthropic(lawyerId, history, userMessage, onChunk) {
     }
   }
 
-  return fullText || '（無回應）';
+  return fullText || (getLang() === 'en' ? '(No response)' : '（無回應）');
 }
 
 async function sendGemini(lawyerId, history, userMessage) {
@@ -104,11 +107,11 @@ async function sendGemini(lawyerId, history, userMessage) {
   const contents = [];
   contents.push({
     role: 'user',
-    parts: [{ text: systemPrompt + '\n\n請用繁體中文回答。以下是當事人的問題：' }],
+    parts: [{ text: systemPrompt + (getLang() === 'en' ? '\n\nReply in English. Here is the question:' : '\n\n請用繁體中文回答。以下是當事人的問題：') }],
   });
   contents.push({
     role: 'model',
-    parts: [{ text: '好的，我了解了。請問有什麼我能幫您的？' }],
+    parts: [{ text: getLang() === 'en' ? 'Understood. How can I help you?' : '好的，我了解了。請問有什麼我能幫您的？' }],
   });
 
   for (const msg of history) {
@@ -131,5 +134,5 @@ async function sendGemini(lawyerId, history, userMessage) {
   }
 
   const data = await res.json();
-  return data.candidates?.[0]?.content?.parts?.[0]?.text ?? '（無回應）';
+  return data.candidates?.[0]?.content?.parts?.[0]?.text ?? (getLang() === 'en' ? '(No response)' : '（無回應）');
 }

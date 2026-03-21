@@ -15,7 +15,7 @@ function resetIdleTimer() {
 }
 
 function goToSelect() {
-  renderSelectScreen(app, { onSelectLawyer: goToChat });
+  renderSelectScreen(app, { onSelectLawyer: goToChat, onLangChange: goToSelect });
   resetIdleTimer();
 }
 

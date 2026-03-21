@@ -1,12 +1,16 @@
 import { GENERAL_QUESTIONS } from '../lawyers.js';
 import { sendMessage } from '../chat.js';
+import { t, tLawyer, getLang, toggleLang } from '../i18n.js';
 
 export function renderChatScreen(app, lawyer, { onSwitchLawyer }) {
   let chatHistory = [];
   let isLoading = false;
 
-  const lawyerQuestions = [...(lawyer.suggestedQuestions || [])];
-  const generalQuestions = [...GENERAL_QUESTIONS];
+  const lang = getLang();
+  const lawyerQs = lawyer.suggestedQuestions?.[lang] || lawyer.suggestedQuestions?.zh || [];
+  const generalQs = GENERAL_QUESTIONS[lang] || GENERAL_QUESTIONS.zh;
+  const lawyerQuestions = [...lawyerQs];
+  const generalQuestions = [...generalQs];
   const usedQuestions = new Set();
 
   function pickQuestions(count) {
@@ -36,23 +40,23 @@ export function renderChatScreen(app, lawyer, { onSwitchLawyer }) {
   app.innerHTML = `
     <div class="chat-screen">
       <header class="site-header">
-        <a href="#" class="site-logo site-logo-link"><img src="/assets/chat-header-icon.svg" width="42" height="42" alt="" />律師辦公室裡的告解</a>
-        <a href="#" class="site-nav-link">繁體中文 / EN</a>
+        <a href="#" class="site-logo site-logo-link"><img src="/assets/chat-header-icon.svg" width="42" height="42" alt="" />${t('siteName')}</a>
+        <a href="#" class="site-nav-link">${t('langToggle')}</a>
       </header>
       <div class="chat-lawyer-bar">
         <div class="chat-lawyer-info">
-          <img class="chat-lawyer-avatar" src="${lawyer.image}" alt="${lawyer.name}" />
-          <span class="chat-lawyer-name">${lawyer.roleTitle || lawyer.role}</span>
+          <img class="chat-lawyer-avatar" src="${lawyer.image}" alt="${tLawyer(lawyer, 'name')}" />
+          <span class="chat-lawyer-name">${tLawyer(lawyer, 'roleTitle') || tLawyer(lawyer, 'role')}</span>
         </div>
-        <button class="chat-switch-btn">換律師聊</button>
+        <button class="chat-switch-btn">${t('switchLawyer')}</button>
       </div>
       <div class="chat-messages-wrap">
       <div class="chat-messages" id="messages">
         <div class="chat-welcome">
           <div class="chat-welcome-avatar">
-            <img src="${lawyer.image}" alt="${lawyer.name}" />
+            <img src="${lawyer.image}" alt="${tLawyer(lawyer, 'name')}" />
           </div>
-          <p class="chat-welcome-text">您可以選擇預設問題，或是由自己發問。<br/>與議題無關的話題將會被引導回正題。</p>
+          <p class="chat-welcome-text">${t('welcomeText')}</p>
         </div>
       </div>
       <button class="scroll-to-bottom" id="scroll-to-bottom" style="display:none;">↓</button>
@@ -62,16 +66,17 @@ export function renderChatScreen(app, lawyer, { onSwitchLawyer }) {
           ${initialQuestions.map(q => `<button class="chat-suggestion-chip">${q}</button>`).join('')}
         </div>
         <div class="chat-input-area">
-          <textarea id="chat-input" placeholder="請輸入你的好奇..." rows="1"></textarea>
-          <button id="send-btn"><img src="/assets/send-button.svg" width="40" height="40" alt="送出" /></button>
+          <textarea id="chat-input" placeholder="${t('inputPlaceholder')}" rows="1"></textarea>
+          <button id="send-btn"><img src="/assets/send-button.svg" width="40" height="40" alt="${t('send')}" /></button>
         </div>
-        <div class="chat-disclaimer"><span>這是 AI 模擬對話情境，供教育用途，不構成法律建議。</span></div>
+        <div class="chat-disclaimer"><span>${t('disclaimer')}</span></div>
       </div>
     </div>
   `;
 
   const logoLink = app.querySelector('.site-logo-link');
   const switchBtn = app.querySelector('.chat-switch-btn');
+  const langLink = app.querySelector('.site-nav-link');
   const input = document.getElementById('chat-input');
   const sendBtn = document.getElementById('send-btn');
   const messages = document.getElementById('messages');
@@ -115,6 +120,12 @@ export function renderChatScreen(app, lawyer, { onSwitchLawyer }) {
 
   logoLink.addEventListener('click', (e) => { e.preventDefault(); onSwitchLawyer(); });
   switchBtn.addEventListener('click', onSwitchLawyer);
+  langLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    toggleLang();
+    // Re-render chat screen with new language
+    renderChatScreen(app, lawyer, { onSwitchLawyer });
+  });
 
   function updateSuggestionChips(questions) {
     suggestions.innerHTML = questions
@@ -286,7 +297,7 @@ export function renderChatScreen(app, lawyer, { onSwitchLawyer }) {
       }
     } catch (err) {
       dotsEl.remove();
-      streamEl.textContent = `發生錯誤：${err.message}`;
+      streamEl.textContent = `${t('error')}${err.message}`;
     }
 
     isLoading = false;
