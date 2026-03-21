@@ -1,4 +1,4 @@
-import { lawyers } from './lawyers.js';
+import { lawyers, GENERAL_QUESTIONS } from './lawyers.js';
 import { sendMessage, getProvider, setProvider } from './chat.js';
 
 const app = document.getElementById('app');
@@ -156,21 +156,35 @@ function renderChatScreen(lawyer) {
   currentLawyer = lawyer;
   chatHistory = [];
 
-  const questionPool = [...(lawyer.suggestedQuestions || [])];
+  const lawyerQuestions = [...(lawyer.suggestedQuestions || [])];
+  const generalQuestions = [...GENERAL_QUESTIONS];
   const usedQuestions = new Set();
 
   function pickQuestions(count) {
-    const available = questionPool.filter(q => !usedQuestions.has(q));
     const picked = [];
-    for (let i = 0; i < count && available.length > 0; i++) {
-      const idx = Math.floor(Math.random() * available.length);
-      picked.push(available.splice(idx, 1)[0]);
+    // Prioritise unused lawyer-specific questions
+    for (let i = 0; i < lawyerQuestions.length && picked.length < count; ) {
+      if (!usedQuestions.has(lawyerQuestions[i])) {
+        picked.push(lawyerQuestions[i]);
+        lawyerQuestions.splice(i, 1);
+      } else {
+        i++;
+      }
     }
+    // Fill remaining slots with general questions
+    for (let i = 0; i < generalQuestions.length && picked.length < count; ) {
+      if (!usedQuestions.has(generalQuestions[i])) {
+        picked.push(generalQuestions[i]);
+        generalQuestions.splice(i, 1);
+      } else {
+        i++;
+      }
+    }
+    picked.forEach(q => usedQuestions.add(q));
     return picked;
   }
 
   const initialQuestions = pickQuestions(3);
-  initialQuestions.forEach(q => usedQuestions.add(q));
 
   app.innerHTML = `
     <div class="chat-screen">
@@ -417,7 +431,7 @@ function renderChatScreen(lawyer) {
       chatHistory.push({ role: 'ai', text: reply });
 
       // Show follow-up question chips
-      const followUps = pickQuestions(2);
+      const followUps = pickQuestions(3);
       if (followUps.length > 0) {
         followUps.forEach(q => usedQuestions.add(q));
         updateSuggestionChips(followUps);
