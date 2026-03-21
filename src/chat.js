@@ -51,7 +51,7 @@ async function sendAnthropic(lawyerId, history, userMessage, onChunk) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       model: 'claude-sonnet-4-20250514',
-      max_tokens: 512,
+      max_tokens: 400,
       stream: true,
       system: [
         {
