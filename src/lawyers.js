@@ -1,3 +1,6 @@
+const CDN_BASE = 'https://cdn.jsdelivr.net/gh/j0214ack/prima-facie-2026@main/public/assets';
+const assetUrl = (file) => import.meta.env.DEV ? `/assets/${file}` : `${CDN_BASE}/${file}`;
+
 // Chunk modules for lazy loading (Vite code-splits these)
 const chunkModules = import.meta.glob('./data/chunks/lawyer_*.json');
 
@@ -81,7 +84,7 @@ export const lawyers = [
     quote: '替性暴力被告辯護，最難的不是外界眼光，而是怎麼說服自己：我守住的是程序與證據，不是替惡開脫。',
     roleTitle: '追尋真相的辯護者',
     longDesc: '經驗豐富的刑事辯護律師，曾在地方法院性侵專庭擔任法官助理。主要代理加害人辯護，也曾代理性影像犯罪被害人。參與過性影像犯罪律師聯署行動，相信程序正義是目前能做到的正義。',
-    image: 'https://cdn.jsdelivr.net/gh/j0214ack/prima-facie-2026@main/public/assets/lawyer1.webp',
+    image: assetUrl('lawyer1.webp'),
     suggestedQuestions: [
       '為什麼性影像犯罪案件特別可怕？',
       '在你這些案件裡面，有沒有哪幾個是讓你比較震撼、或是一直記到現在的？',
@@ -101,7 +104,7 @@ export const lawyers = [
     quote: '密室、無證據，讓這類案件對告訴人殘酷，對被告也殘酷。我記得受害者說出口時的痛，但我更死守證據，因為我最怕的，還是冤假錯案。',
     roleTitle: '務實直率的辯護者',
     longDesc: '在中南部執業的刑事訴訟律師，師承知名刑法學者。辯護與告訴案件比例各半，曾參與冤案救援組織。主張「去除性的神秘化」讓被害人更快報案保全證據。',
-    image: 'https://cdn.jsdelivr.net/gh/j0214ack/prima-facie-2026@main/public/assets/lawyer2.webp',
+    image: assetUrl('lawyer2.webp'),
     suggestedQuestions: [
       '告訴方與辯護方的敘事差異大嗎？',
       '為什麼性暴力案件特別難處理？',
@@ -121,7 +124,7 @@ export const lawyers = [
     quote: '我把自己當成查案的人：對於觀念不足的人們應該給予機會，不然你逼急了他，只是製造社會對立，正義應該去製造衡平。',
     roleTitle: '冷靜分析的調查者',
     longDesc: '前資料分析師轉行律師，專精性騷擾案件調查。自我定位為「專業查案人」，兩三年間處理十多件案件。重視統計與趨勢分析，警惕獵巫式公審，認同桑德爾的正義論述。',
-    image: 'https://cdn.jsdelivr.net/gh/j0214ack/prima-facie-2026@main/public/assets/lawyer3.webp',
+    image: assetUrl('lawyer3.webp'),
     suggestedQuestions: [
       '不同場域（企業／公部門／軍中）發聲的壓力差異？',
       '如何看待 #Metoo 運動？',
@@ -141,7 +144,7 @@ export const lawyers = [
     quote: '司法過程可能有很多限制，但被害人需要一份正義，可能是一份起訴書、或是一筆賠償，不管它以什麼形式出現，我會努力爭取。',
     roleTitle: '前線實戰的辯護者',
     longDesc: '年輕女性律師，處理過大量數位性暴力案件，包含Telegram群組散布、AirDrop傳送性私密影像等新型態犯罪。觀察到法庭中明顯的性別動態差異。',
-    image: 'https://cdn.jsdelivr.net/gh/j0214ack/prima-facie-2026@main/public/assets/lawyer4.webp',
+    image: assetUrl('lawyer4.webp'),
     suggestedQuestions: [
       '被害人在提告之後，還會受到哪些攻擊？',
       '數位性暴力的實務上有什麼困境？',
@@ -161,7 +164,7 @@ export const lawyers = [
     quote: '我們以前念書時，很少把事情直接當成性騷擾，但現在那條線已經不一樣了。',
     roleTitle: '溫柔觀察的調查者',
     longDesc: '女性律師，主要處理校園性平調查案件。近年以調查委員身分參與較多行政調查。關注世代差異對性平認知的影響，相信教育是改變的根本。對未成年案件雙方都懷有深切關懷。',
-    image: 'https://cdn.jsdelivr.net/gh/j0214ack/prima-facie-2026@main/public/assets/lawyer5.webp',
+    image: assetUrl('lawyer5.webp'),
     suggestedQuestions: [
       '如果校園性平法有和解機制，那會需要什麼樣的設計？',
       '目前接到的性平案件裡，你覺得大部分提告的人，動機是什麼？他們是想尋求什麼，才會提告？',
@@ -181,7 +184,7 @@ export const lawyers = [
     quote: '那是他的業，不是我的——但在他面對之前，我得先讓他看清楚。做錯了就要面對，如果面對了，才能說服我，我才能用法律說服別人。',
     roleTitle: '堅守原則的辯護者',
     longDesc: '同時處理刑事辯護、被害人代理與校園性平調查的律師。信仰佛教，有明確的案件篩選倫理。認為性犯罪承載了太多社會定義與道德重量，與其他犯罪本質不同。',
-    image: 'https://cdn.jsdelivr.net/gh/j0214ack/prima-facie-2026@main/public/assets/lawyer6.webp',
+    image: assetUrl('lawyer6.webp'),
     suggestedQuestions: [
       '當事人在進入法律程序後，想法會改變嗎？',
       '長期處理這些案件，你怎麼紓解情緒？',
@@ -201,7 +204,7 @@ export const lawyers = [
     quote: '我一邊想保護她，一邊又不得不問那些會傷她的問題；而法律能處理的，其實只是一部分。',
     roleTitle: '自我詰問的調查者',
     longDesc: '近期從企業法務轉為獨立執業，主要處理職場性騷擾的外部調查。育有幼兒的母親，也在學校做法治教育志工。即使受過創傷知情訓練，仍常質疑自己是否做得足夠。',
-    image: 'https://cdn.jsdelivr.net/gh/j0214ack/prima-facie-2026@main/public/assets/lawyer7.webp',
+    image: assetUrl('lawyer7.webp'),
     suggestedQuestions: [
       '你怎麼看待當事人願意發聲這件事？',
       '性平案件和一般案件相比，最大的不同與困難是什麼？',

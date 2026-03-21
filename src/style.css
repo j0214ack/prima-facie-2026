@@ -22,7 +22,8 @@
   --font-sans: 'Noto Sans TC', sans-serif;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   font-family: var(--font-sans);
   background: var(--bg);
@@ -59,6 +60,8 @@ html, body {
   font-size: 16px;
   font-weight: 700;
   color: var(--text);
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .site-nav-link {
@@ -78,8 +81,7 @@ html, body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 560px;
-  padding: 80px 120px;
+  padding: 32px 20px;
   overflow: hidden;
 }
 
@@ -95,42 +97,40 @@ html, body {
   flex-direction: column;
   align-items: center;
   gap: 24px;
-  max-width: 640px;
+  padding: 12px;
   text-align: center;
 }
 
 .hero-title {
   font-family: var(--font-sans);
-  font-size: 36px;
-  font-weight: 300;
+  font-size: 28px;
+  font-weight: 700;
   line-height: 1.5;
   color: var(--text);
   background: #FFFFFF;
-  padding: 4px 16px;
+  height: 21px;
   box-decoration-break: clone;
+  overflow: visible;
   -webkit-box-decoration-break: clone;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .hero-body {
   font-size: 18px;
-  font-weight: 300;
-  line-height: 2;
+  font-weight: 400;
   color: var(--text);
   background: #FFFFFF;
-  padding: 12px 24px;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.hero-cta {
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 2;
-  color: var(--text);
-  background: #FFFFFF;
-  padding: 12px 24px;
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
+.hero-body p {
+  line-height: 1.5;
 }
 
 /* Lawyer Section */
@@ -228,14 +228,13 @@ html, body {
 
 /* Footer */
 .site-footer {
-  padding: 40px 60px;
+  padding: 24px 120px;
   text-align: left;
   background: #ffffff;
 }
 
 .site-footer p {
   font-size: 12px;
-  font-weight: 300;
   color: #2b2b2b;
   line-height: 2;
 }
@@ -454,7 +453,7 @@ html, body {
   color: var(--text);
   font-size: 18px;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
   z-index: 10;
   line-height: 1;
 }
@@ -553,8 +552,18 @@ html, body {
 }
 
 @keyframes dot-bounce {
-  0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
-  30% { opacity: 1; transform: translateY(-4px); }
+
+  0%,
+  60%,
+  100% {
+    opacity: 0.3;
+    transform: translateY(0);
+  }
+
+  30% {
+    opacity: 1;
+    transform: translateY(-4px);
+  }
 }
 
 /* Suggested questions */
@@ -594,8 +603,9 @@ html, body {
 
 /* Chat bottom area */
 .chat-bottom {
+  padding: 24px 40px;
   flex-shrink: 0;
-  background: url('https://cdn.jsdelivr.net/gh/j0214ack/prima-facie-2026@main/public/assets/reddot-bg.webp') center / 300% auto no-repeat;
+  background: url('/assets/chat-footer-background.svg') center bottom / 100% auto no-repeat;
   background-color: #f5f0eb;
 }
 
@@ -610,7 +620,7 @@ html, body {
 .chat-input-area textarea {
   flex: 1;
   border: 1px solid var(--border);
-  border-radius: 4px;
+  border-radius: 8px;
   padding: 10px 16px;
   font-size: 18px;
   font-family: var(--font-sans);
@@ -626,6 +636,7 @@ html, body {
 
 .chat-input-area textarea::placeholder {
   color: var(--text-muted);
+  line-height: 24px;
 }
 
 .chat-input-area textarea:focus {
@@ -657,12 +668,12 @@ html, body {
 .chat-disclaimer {
   padding: 8px 24px 12px;
   font-size: 11px;
-  color: #ffffff;
+  color: var(--text);
   text-align: left;
 }
 
 .chat-disclaimer span {
-  background: var(--text);
+  background: #ffffff;
   padding: 2px 8px;
 }
 
