@@ -860,6 +860,7 @@ body {
   flex: 45;
   min-height: 0;
   overflow: hidden;
+  margin-bottom: 12px;
   background: url('https://cdn.jsdelivr.net/gh/j0214ack/prima-facie-2026@main/public/assets/intro-lighbox-background.webp') center / contain no-repeat #ffffff;
 }
 
@@ -881,7 +882,7 @@ body {
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 12px;
 }
 
 .lightbox-title {
