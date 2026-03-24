@@ -16,9 +16,10 @@ export function showLawyerLightbox(lawyer, { onStart }) {
         <div class="lawyer-lightbox-details">
           <h3 class="lawyer-lightbox-role">${tLawyer(lawyer, 'roleTitle') || tLawyer(lawyer, 'role')}</h3>
           <p class="lawyer-lightbox-desc">${tLawyer(lawyer, 'longDesc') || tLawyer(lawyer, 'desc')}</p>
-          <p class="lawyer-lightbox-quote">「${tLawyer(lawyer, 'quote') || ''}」</p>
         </div>
       </div>
+      <p class="lawyer-lightbox-quote">「${tLawyer(lawyer, 'quote') || ''}」</p>
+      <p class="lawyer-lightbox-disclaimer">${t('lawyerDisclaimer')}</p>
       <button class="lawyer-lightbox-cta">${t('startChat')}</button>
     </div>
   `;
