@@ -213,7 +213,7 @@ body {
 .lawyer-card-name {
   font-family: var(--font-sans);
   font-size: 18px;
-  font-weight: 700;
+  font-weight: 500;
   color: var(--text);
 }
 
@@ -758,7 +758,6 @@ body {
   font-weight: 400;
   line-height: 1.8;
   color: var(--brand-dark);
-  padding: 0 24px;
 }
 
 .lawyer-lightbox-disclaimer {
@@ -766,7 +765,8 @@ body {
   font-size: 13px;
   font-weight: 400;
   color: var(--text-secondary);
-  padding: 8px 24px 0;
+  text-align: center;
+  padding: 0 24px 24px;
 }
 
 .lawyer-lightbox-role {
@@ -790,6 +790,7 @@ body {
   background: var(--text);
   color: #ffffff;
   border: none;
+  border-radius: 8px;
   font-family: var(--font-sans);
   font-size: 16px;
   font-weight: 700;
@@ -824,12 +825,8 @@ body {
     margin: 16px 20px;
   }
 
-  .lawyer-lightbox-quote {
-    padding: 0 20px;
-  }
-
   .lawyer-lightbox-disclaimer {
-    padding: 8px 20px 0;
+    padding: 0 20px 20px;
   }
 }
 
@@ -844,7 +841,7 @@ body {
   inset: 0;
   z-index: 1000;
   display: flex;
-  padding: 40px 40px;
+  padding: 24px;
   background: rgba(0, 0, 0, 0.5);
 }
 
@@ -862,9 +859,7 @@ body {
   flex: 1;
   min-height: 200px;
   overflow: hidden;
-  padding: 24px;
   background: url('https://cdn.jsdelivr.net/gh/j0214ack/prima-facie-2026@main/public/assets/intro-lighbox-background.webp') center / contain no-repeat #ffffff;
-  background-origin: content-box;
 }
 
 .lightbox-image img {
@@ -880,7 +875,7 @@ body {
 
 .lightbox-text-wrap {
   flex: 1;
-  padding: 40px 40px 24px;
+  padding: 0 40px 24px 40px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -892,16 +887,15 @@ body {
   font-size: 36px;
   font-weight: 700;
   color: var(--text);
-  line-height: 1.5;
+  line-height: 1;
 }
 
 .lightbox-text {
   display: flex;
   flex-direction: column;
-  gap: 12px;
   font-size: 18px;
   font-weight: 400;
-  line-height: 1.7;
+  line-height: 1;
   color: var(--text);
 }
 
@@ -911,6 +905,7 @@ body {
   background: var(--text);
   color: #ffffff;
   border: none;
+  border-radius: 12px;
   font-family: var(--font-sans);
   font-size: 28px;
   font-weight: 700;
