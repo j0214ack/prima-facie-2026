@@ -290,7 +290,7 @@ body {
 /* ── Mobile (<768px) ── */
 @media (max-width: 767px) {
   .site-header {
-    padding: 14px 20px;
+    padding: 8px 12px;
   }
 
   .site-logo {
@@ -313,6 +313,7 @@ body {
 
   .hero-title {
     font-size: 24px;
+    height: 42px;
   }
 
   .hero-body {
@@ -346,18 +347,14 @@ body {
 
   .lawyer-card {
     width: 100%;
-    flex-direction: row;
   }
 
   .lawyer-card-image {
-    width: 120px;
-    height: 140px;
-    aspect-ratio: auto;
-    flex-shrink: 0;
+    aspect-ratio: 1;
   }
 
   .lawyer-card-info {
-    padding: 16px;
+    padding: 8px 12px;
     justify-content: center;
   }
 
@@ -368,6 +365,7 @@ body {
   .site-footer {
     padding: 32px 20px;
   }
+
 }
 
 /* ── Chat Screen ── */
@@ -572,15 +570,21 @@ body {
 /* Suggested questions */
 .chat-suggestions {
   display: flex;
-  flex-wrap: wrap;
   gap: 12px;
   padding: 12px 24px;
+  overflow-x: auto;
   background: transparent;
   flex-shrink: 0;
 }
 
+.chat-suggestions::-webkit-scrollbar {
+  display: none;
+}
+
 .chat-suggestion-chip {
+  flex-shrink: 0;
   padding: 16px 20px;
+  max-width: 280px;
   background: var(--text);
   border: none;
   border-radius: 4px;
@@ -602,7 +606,7 @@ body {
 .chat-bottom {
   padding: 24px 40px;
   flex-shrink: 0;
-  background: url('/assets/chat-footer-background.svg') center bottom / 100% auto no-repeat;
+  background: url('/assets/chat-footer-background.svg') center / cover no-repeat;
   background-color: #f5f0eb;
   border-top: none;
 }
@@ -673,6 +677,50 @@ body {
 .chat-disclaimer span {
   background: #ffffff;
   padding: 2px 8px;
+}
+
+/* ── Chat Mobile ── */
+@media (max-width: 767px) {
+  .chat-lawyer-bar {
+    padding: 8px 12px;
+  }
+
+  .chat-bottom {
+    padding: 12px;
+  }
+
+  .chat-messages {
+    padding: 8px;
+  }
+
+  .chat-suggestions {
+    padding: 0;
+  }
+
+  .chat-input-area {
+    padding: 0;
+    margin-top: 12px;
+    margin-bottom: 4px;
+  }
+
+  .chat-suggestion-chip {
+    padding: 4px 8px;
+    font-size: 15px;
+  }
+
+  .chat-disclaimer {
+    padding: 4px 0 0;
+  }
+
+  .chat-lawyer-name,
+  .chat-switch-btn,
+  .scroll-to-bottom,
+  .chat-welcome-text,
+  .message,
+  .chat-suggestion-chip,
+  .chat-input-area textarea {
+    font-size: 15px;
+  }
 }
 
 /* ── Lawyer Lightbox ── */
@@ -821,8 +869,16 @@ body {
     padding: 0 20px;
   }
 
+  .lawyer-lightbox-label,
+  .lawyer-lightbox-quote,
+  .lawyer-lightbox-role,
+  .lawyer-lightbox-desc {
+    font-size: 15px;
+  }
+
   .lawyer-lightbox-cta {
     margin: 16px 20px;
+    font-size: 15px;
   }
 
   .lawyer-lightbox-disclaimer {
