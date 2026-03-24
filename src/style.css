@@ -853,6 +853,7 @@ body {
   background: #ffffff;
   border-radius: 12px;
   overflow: hidden;
+  padding-top: 12px;
 }
 
 .lightbox-image {
@@ -871,7 +872,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 0;
-  padding: 12px 40px 24px 40px;
+  padding: 0 40px 24px 40px;
 }
 
 .lightbox-text-wrap {
