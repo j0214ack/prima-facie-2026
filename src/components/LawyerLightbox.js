@@ -14,8 +14,8 @@ export function showLawyerLightbox(lawyer, { onStart }) {
           <img src="${lawyer.image}" alt="${tLawyer(lawyer, 'name')}" />
         </div>
         <div class="lawyer-lightbox-details">
-          <h3 class="lawyer-lightbox-role">${tLawyer(lawyer, 'roleTitle') || tLawyer(lawyer, 'role')}</h3>
-          <p class="lawyer-lightbox-desc">${tLawyer(lawyer, 'longDesc') || tLawyer(lawyer, 'desc')}</p>
+          <h3 class="lawyer-lightbox-role">${tLawyer(lawyer, 'name') || tLawyer(lawyer, 'role')}</h3>
+          <p class="lawyer-lightbox-desc">${tLawyer(lawyer, 'desc') || tLawyer(lawyer, 'longDesc')}</p>
           <p class="lawyer-lightbox-quote">「${tLawyer(lawyer, 'quote') || ''}」</p>
         </div>
       </div>

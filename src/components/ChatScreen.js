@@ -15,7 +15,7 @@ export function renderChatScreen(app, lawyer, { onSwitchLawyer }) {
 
   function pickQuestions(count) {
     const picked = [];
-    for (let i = 0; i < lawyerQuestions.length && picked.length < count; ) {
+    for (let i = 0; i < lawyerQuestions.length && picked.length < count;) {
       if (!usedQuestions.has(lawyerQuestions[i])) {
         picked.push(lawyerQuestions[i]);
         lawyerQuestions.splice(i, 1);
@@ -23,7 +23,7 @@ export function renderChatScreen(app, lawyer, { onSwitchLawyer }) {
         i++;
       }
     }
-    for (let i = 0; i < generalQuestions.length && picked.length < count; ) {
+    for (let i = 0; i < generalQuestions.length && picked.length < count;) {
       if (!usedQuestions.has(generalQuestions[i])) {
         picked.push(generalQuestions[i]);
         generalQuestions.splice(i, 1);
@@ -48,7 +48,7 @@ export function renderChatScreen(app, lawyer, { onSwitchLawyer }) {
         <div class="chat-lawyer-bar">
           <div class="chat-lawyer-info">
             <img class="chat-lawyer-avatar" src="${lawyer.image}" alt="${tLawyer(lawyer, 'name')}" />
-            <span class="chat-lawyer-name">${tLawyer(lawyer, 'roleTitle') || tLawyer(lawyer, 'role')}</span>
+            <span class="chat-lawyer-name">${tLawyer(lawyer, 'desc') || tLawyer(lawyer, 'role')}</span>
           </div>
           <button class="chat-switch-btn">${t('switchLawyer')}</button>
         </div>
