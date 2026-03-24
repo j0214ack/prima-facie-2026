@@ -841,7 +841,7 @@ body {
   inset: 0;
   z-index: 1000;
   display: flex;
-  padding: 24px;
+  padding: 12px;
   background: rgba(0, 0, 0, 0.5);
 }
 
