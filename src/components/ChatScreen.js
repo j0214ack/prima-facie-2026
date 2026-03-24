@@ -35,7 +35,8 @@ export function renderChatScreen(app, lawyer, { onSwitchLawyer }) {
     return picked;
   }
 
-  const initialQuestions = pickQuestions(3);
+  const allQuestions = [...lawyerQs, ...generalQs];
+  const initialQuestions = allQuestions;
 
   app.innerHTML = `
     <div class="chat-screen">
@@ -43,23 +44,25 @@ export function renderChatScreen(app, lawyer, { onSwitchLawyer }) {
         <a href="#" class="site-logo site-logo-link"><img src="/assets/chat-header-icon.svg" width="42" height="42" alt="" />${t('siteName')}</a>
         <a href="#" class="site-nav-link">${t('langToggle')}</a>
       </header>
-      <div class="chat-lawyer-bar">
-        <div class="chat-lawyer-info">
-          <img class="chat-lawyer-avatar" src="${lawyer.image}" alt="${tLawyer(lawyer, 'name')}" />
-          <span class="chat-lawyer-name">${tLawyer(lawyer, 'roleTitle') || tLawyer(lawyer, 'role')}</span>
-        </div>
-        <button class="chat-switch-btn">${t('switchLawyer')}</button>
-      </div>
-      <div class="chat-messages-wrap">
-      <div class="chat-messages" id="messages">
-        <div class="chat-welcome">
-          <div class="chat-welcome-avatar">
-            <img src="${lawyer.image}" alt="${tLawyer(lawyer, 'name')}" />
+      <div class="chat-main">
+        <div class="chat-lawyer-bar">
+          <div class="chat-lawyer-info">
+            <img class="chat-lawyer-avatar" src="${lawyer.image}" alt="${tLawyer(lawyer, 'name')}" />
+            <span class="chat-lawyer-name">${tLawyer(lawyer, 'roleTitle') || tLawyer(lawyer, 'role')}</span>
           </div>
-          <p class="chat-welcome-text">${t('welcomeText')}</p>
+          <button class="chat-switch-btn">${t('switchLawyer')}</button>
         </div>
-      </div>
-      <button class="scroll-to-bottom" id="scroll-to-bottom" style="display:none;">↓</button>
+        <div class="chat-messages-wrap">
+          <div class="chat-messages" id="messages">
+            <div class="chat-welcome">
+              <div class="chat-welcome-avatar">
+                <img src="${lawyer.image}" alt="${tLawyer(lawyer, 'name')}" />
+              </div>
+              <p class="chat-welcome-text">${t('welcomeText')}</p>
+            </div>
+          </div>
+          <button class="scroll-to-bottom" id="scroll-to-bottom" style="display:none;">↓</button>
+        </div>
       </div>
       <div class="chat-bottom">
         <div class="chat-suggestions" id="suggestions">
@@ -290,10 +293,9 @@ export function renderChatScreen(app, lawyer, { onSwitchLawyer }) {
       dotsEl.remove();
       chatHistory.push({ role: 'ai', text: reply });
 
-      const followUps = pickQuestions(3);
-      if (followUps.length > 0) {
-        followUps.forEach(q => usedQuestions.add(q));
-        updateSuggestionChips(followUps);
+      const remaining = allQuestions.filter(q => !usedQuestions.has(q));
+      if (remaining.length > 0) {
+        updateSuggestionChips(remaining);
       }
     } catch (err) {
       dotsEl.remove();

@@ -381,8 +381,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 24px;
-  background: var(--text);
+  padding: 16px 60px;
+  background: rgba(71, 6, 6, 0.3);
   color: #ffffff;
 }
 
@@ -405,11 +405,13 @@ body {
   font-size: 18px;
   font-weight: 700;
   color: #ffffff;
+  background: #000000;
+  padding: 2px 8px;
 }
 
 .chat-switch-btn {
-  background: none;
-  border: 1px solid #ffffff;
+  background: #000000;
+  border: none;
   border-radius: 4px;
   padding: 6px 16px;
   font-size: 18px;
@@ -421,10 +423,18 @@ body {
 }
 
 .chat-switch-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: #333333;
 }
 
 /* Chat messages */
+.chat-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: url('https://cdn.jsdelivr.net/gh/j0214ack/prima-facie-2026@main/public/assets/redline-bg.webp') center / cover no-repeat;
+}
+
 .chat-messages-wrap {
   flex: 1;
   position: relative;
@@ -439,7 +449,6 @@ body {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  background: url('https://cdn.jsdelivr.net/gh/j0214ack/prima-facie-2026@main/public/assets/redline-bg.webp') center / cover no-repeat;
 }
 
 .scroll-to-bottom {
