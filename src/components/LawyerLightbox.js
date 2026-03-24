@@ -20,6 +20,7 @@ export function showLawyerLightbox(lawyer, { onStart }) {
         </div>
       </div>
       <button class="lawyer-lightbox-cta">${t('startChat')}</button>
+      <p class="lawyer-lightbox-disclaimer">${t('lawyerDisclaimer1')}<br/>${t('lawyerDisclaimer2')}</p>
     </div>
   `;
   document.body.appendChild(overlay);
