@@ -10,7 +10,7 @@ export function showLawyerLightbox(lawyer, { onStart }) {
         <button class="lawyer-lightbox-close"><img src="/assets/close.svg" width="14" height="14" alt="${t('close')}" /></button>
       </div>
       <div class="lawyer-lightbox-content">
-        <div class="lawyer-lightbox-avatar">
+        <div class="lawyer-lightbox-avatar" data-lawyer-id="${lawyer.id}">
           <img src="${lawyer.image}" alt="${tLawyer(lawyer, 'name')}" />
         </div>
         <div class="lawyer-lightbox-details">
