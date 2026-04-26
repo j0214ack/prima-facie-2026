@@ -1,4 +1,4 @@
-let currentLang = 'zh';
+let currentLang = window.location.hash === '#en' ? 'en' : 'zh';
 const listeners = [];
 
 export function getLang() {
@@ -7,6 +7,11 @@ export function getLang() {
 
 export function setLang(lang) {
   currentLang = lang;
+  if (lang === 'en') {
+    history.replaceState(null, '', '#en');
+  } else if (window.location.hash === '#en') {
+    history.replaceState(null, '', window.location.pathname + window.location.search);
+  }
   listeners.forEach(fn => fn(lang));
 }
 
@@ -89,10 +94,11 @@ const translations = {
           </p>`,
     footerDisclaimer: 'The content of this system is AI-generated, based on excerpts from real lawyer interviews. This exhibition aims to provide a space for social reflection and dialogue, and does not constitute any legal consultation or advice. If the exhibition content triggers traumatic experiences, please take care of your emotions first and seek professional psychological support.',
     footerCredits: 'Project Lead ｜ Lee Tzu-Tung&emsp;Organizers ｜ Judicial Reform Foundation・Micro Universe Performance Group<br/>Contact ｜ l.tzutung@gmail.com&emsp;© 2026 All Rights Reserved',
-    introTitle: 'Welcome to the Virtual<br class="mobile-br" />"Lawyer\'s Office"',
-    introText: `<p>"Prima Facie" literally translates to "at first glance," and in legal terms refers to "evidence that is sufficient on its face."</p>
-            <p>But in contexts of power dynamics and sexual violence, can trauma truly be fully captured by "evidence"? "I thought..." often becomes the starting point of every trauma narrative:</p>
+    introTitle: 'Welcome to the Virtual<br class="mobile-br" />Lawyer\'s Office',
+    introText: `<p>Prima Facie — at first glance, sufficient evidence on its face. 原本以為 — I thought, at first.</p>
+            <p>Both phrases begin with a first impression. Both assume the surface is enough.</p>
             <p>"I thought he was a good person."<br/>"I thought the law would give me justice."<br/>"I thought that by translating trauma into legal consequences, the pain would end."</p>
-            <p>In this AI conversation space, we have integrated interview excerpts from multiple lawyers with diverse perspectives.<br/>Here, the law is no longer just cold statutes, but a system intertwined with personal experience, interpretation, and patriarchal blind spots.<br/>You can engage in dialogue with different "lawyers," simulating the experiences and positions of lawyers on the front lines of gender equity conflicts.</p>`,
+            <p>But can trauma ever be fully captured by "evidence"? In contexts of power dynamics and sexual violence, what the law sees at first glance — and what it misses — can determine everything.</p>
+            <p>This space integrates real interview excerpts from lawyers across diverse perspectives.<br/>Here, the law is not cold statute alone, but a system entangled with personal experience, interpretation, and patriarchal blind spots.<br/>You are invited to engage in dialogue with different "lawyers" — stepping into the front lines of gender equity conflicts, and asking what it truly means for evidence to be sufficient on its face.</p>`,
   },
 };
